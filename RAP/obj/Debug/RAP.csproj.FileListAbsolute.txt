@@ -1,0 +1,22 @@
+C:\Users\Pices\source\repos\RAP\RAP\bin\Debug\RAP.exe.config
+C:\Users\Pices\source\repos\RAP\RAP\bin\Debug\RAP.exe
+C:\Users\Pices\source\repos\RAP\RAP\bin\Debug\RAP.pdb
+C:\Users\Pices\source\repos\RAP\RAP\obj\Debug\RAP.csprojAssemblyReference.cache
+C:\Users\Pices\source\repos\RAP\RAP\obj\Debug\RAP.csproj.CoreCompileInputs.cache
+C:\Users\Pices\source\repos\RAP\RAP\obj\Debug\RAP.exe
+C:\Users\Pices\source\repos\RAP\RAP\obj\Debug\RAP.pdb
+C:\Users\Pices\source\repos\RAP\RAP\bin\Debug\MySql.Data.dll
+C:\Users\Pices\source\repos\RAP\RAP\obj\Debug\RAP.csproj.CopyComplete
+D:\2. Document\1. Utas\1.Semester 1_2019\KIT506 Software Design\Assignment 2\RAP\RAP\RAP\bin\Debug\RAP.exe.config
+D:\2. Document\1. Utas\1.Semester 1_2019\KIT506 Software Design\Assignment 2\RAP\RAP\RAP\bin\Debug\RAP.exe
+D:\2. Document\1. Utas\1.Semester 1_2019\KIT506 Software Design\Assignment 2\RAP\RAP\RAP\bin\Debug\RAP.pdb
+D:\2. Document\1. Utas\1.Semester 1_2019\KIT506 Software Design\Assignment 2\RAP\RAP\RAP\bin\Debug\MySql.Data.dll
+D:\2. Document\1. Utas\1.Semester 1_2019\KIT506 Software Design\Assignment 2\RAP\RAP\RAP\bin\Debug\Google.Protobuf.dll
+D:\2. Document\1. Utas\1.Semester 1_2019\KIT506 Software Design\Assignment 2\RAP\RAP\RAP\bin\Debug\Renci.SshNet.dll
+D:\2. Document\1. Utas\1.Semester 1_2019\KIT506 Software Design\Assignment 2\RAP\RAP\RAP\bin\Debug\BouncyCastle.Crypto.dll
+D:\2. Document\1. Utas\1.Semester 1_2019\KIT506 Software Design\Assignment 2\RAP\RAP\RAP\bin\Debug\MySql.Data.xml
+D:\2. Document\1. Utas\1.Semester 1_2019\KIT506 Software Design\Assignment 2\RAP\RAP\RAP\obj\Debug\RAP.csprojAssemblyReference.cache
+D:\2. Document\1. Utas\1.Semester 1_2019\KIT506 Software Design\Assignment 2\RAP\RAP\RAP\obj\Debug\RAP.csproj.CoreCompileInputs.cache
+D:\2. Document\1. Utas\1.Semester 1_2019\KIT506 Software Design\Assignment 2\RAP\RAP\RAP\obj\Debug\RAP.csproj.CopyComplete
+D:\2. Document\1. Utas\1.Semester 1_2019\KIT506 Software Design\Assignment 2\RAP\RAP\RAP\obj\Debug\RAP.exe
+D:\2. Document\1. Utas\1.Semester 1_2019\KIT506 Software Design\Assignment 2\RAP\RAP\RAP\obj\Debug\RAP.pdb
