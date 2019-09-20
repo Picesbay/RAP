@@ -12,7 +12,7 @@ namespace RAP.Entity
         public string DOI { get; set; }
         public string Title { get; set; }
         public string Authors { get; set; }
-        public DateTime Year { get; set; }
+        public int Year { get; set; }
         public OutputType Type {get; set;}
         public string CiteAs { get; set; }
         public DateTime Available { get; set; }

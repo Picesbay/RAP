@@ -99,7 +99,8 @@ namespace RAP.Database
             {
                 conn.Open();
 
-                MySqlCommand cmd = new MySqlCommand("select id, given_name, family_name, title, unit, campus, email, photo from researcher where id =? " , conn);
+                MySqlCommand cmd = new MySqlCommand("select id, given_name, family_name, title, unit, campus, email, " +
+                                                    "photo from researcher where id =? " , conn);
                 cmd.Parameters.AddWithValue("id", id);
                 rdr = cmd.ExecuteReader();
 
@@ -137,7 +138,6 @@ namespace RAP.Database
 
         public static Researcher completeResearcherDetails(Researcher r)
         {
-            r = fetchFullResearcherDetails(r.ID);
 
             string s = @"select researcher.id, 
                                 if (researcher.level is NULL, researcher.type, researcher.level) level, 
@@ -185,18 +185,125 @@ namespace RAP.Database
 
             return r;
         }
-        public static List<Publication> fetchBasicPublicationDetails(int id)
+        public static List<Publication> fetchBasicPublicationDetails(Researcher r)
         {
             List<Publication> pub = new List<Publication>();
+
+            MySqlConnection conn = GetConnection();
+            MySqlDataReader rdr = null;
+
+            try
+            {
+                conn.Open();
+
+                MySqlCommand cmd = new MySqlCommand("select doi from researcher_publication where researcher_id =?", conn);
+                cmd.Parameters.AddWithValue("researcher_id", r.ID);
+                rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    
+                    pub.Add(new Publication { DOI = rdr.GetString(0) }); 
+                }
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine("Error connecting to database: " + e);
+            }
+            finally
+            {
+                if (rdr != null)
+                {
+                    rdr.Close();
+                }
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
+
             return pub;
         }
-        public static List<Publication> completePublicationDetails(int id)
+        public static Publication completePublicationDetails(Publication pub)
         {
-            List<Publication> pub = new List<Publication>();
+            MySqlConnection conn = GetConnection();
+            MySqlDataReader rdr = null;
+
+            try
+            {
+                conn.Open();
+
+                MySqlCommand cmd = new MySqlCommand("select * from publication where doi =?", conn);
+                cmd.Parameters.AddWithValue("doi", pub.DOI);
+                rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    pub.DOI = rdr.GetString(0);
+                    pub.Title = rdr.GetString(1);
+                    pub.Authors = rdr.GetString(2);
+                    pub.Year = rdr.GetInt32(3);
+                    pub.Type = ParseEnum<OutputType>(rdr.GetString(4));
+                    pub.CiteAs = rdr.GetString(5);
+                    pub.Available = rdr.GetDateTime(6);
+                }
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine("Error connecting to database: " + e);
+            }
+            finally
+            {
+                if (rdr != null)
+                {
+                    rdr.Close();
+                }
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
             return pub;
         }
         public static int fetchPublicationCounts(DateTime fromDate, DateTime toDate)
         {
+            MySqlConnection conn = GetConnection();
+            MySqlDataReader rdr = null;
+
+            try
+            {
+                conn.Open();
+
+                //MySqlCommand cmd = new MySqlCommand("select * from publication where doi =?", conn);
+                //cmd.Parameters.AddWithValue("doi", pub.DOI);
+                //rdr = cmd.ExecuteReader();
+
+                //while (rdr.Read())
+                //{
+                //    pub.DOI = rdr.GetString(0);
+                //    pub.Title = rdr.GetString(1);
+                //    pub.Authors = rdr.GetString(2);
+                //    pub.Year = rdr.GetInt32(3);
+                //    pub.Type = ParseEnum<OutputType>(rdr.GetString(4));
+                //    pub.CiteAs = rdr.GetString(5);
+                //    pub.Available = rdr.GetDateTime(6);
+                //}
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine("Error connecting to database: " + e);
+            }
+            finally
+            {
+                if (rdr != null)
+                {
+                    rdr.Close();
+                }
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
             return 0;
         }
     }

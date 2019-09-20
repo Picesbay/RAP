@@ -20,40 +20,63 @@ namespace RAP.Controller
         public void FilterBy(EmploymentLevel level) { }
         public void FilterByName(string name) { }
         public void LoadResearcherDetails() {
-        //    res.ForEach(x =>
-        //    {
-        //        Researcher r = ERDAdapter.completeResearcherDetails(x);
-        //        Console.WriteLine("Name: {0} {1}\nTitle:{2}\nUnit: {3}\nCampus: {4}\nEmail: {5}\n" +
-        //                          "Photo: {6}", r.GivenName, r.FamilyName, r.Title, r.Unit, r.Campus, r.Email, r.Photo);
 
-        //        Console.WriteLine("Current job: {0}\nCommenced with institution: {1}\n" +
-        //                              "Commenced current position: {2}\n" +
-        //                              "Previous positions: \n", r.GetCurrentJob().Title(),
-        //                              r.GetEarliestJob().Start,
-        //                               r.GetCurrentJob().Start);
-        //        r.positions.ForEach(pos =>
-        //        {
-        //            if (pos.Level != EmploymentLevel.Student)
-        //            {
-        //                Console.WriteLine(String.Format("{0}\t{1}\t{2}\n",
-        //                pos.Start, pos.End, pos.Title()));
-        //            };
-        //        });
-        //});
+            //PublicationsController pubic = new PublicationsController();
 
-            foreach(Researcher x in res)
+            //foreach (Researcher x in res)
+            //{
+            //    //Load all the details of a researcher
+            //    Researcher r = ERDAdapter.completeResearcherDetails(x);
+
+            //    //Test to print the full information
+            //    Console.WriteLine("Name: {0} {1}\nTitle:{2}\nUnit: {3}\nCampus: {4}\nEmail: {5}\n" +
+            //                      "Photo: {6}\nCurrent job: {7}\nCommenced with institution: {8}\n" +
+            //                      "Commenced current position: {9}\nPrevious positions: \n",
+            //                      r.GivenName, r.FamilyName, r.Title, r.Unit, r.Campus, r.Email, r.Photo,
+            //                      r.GetCurrentJob().Title(), r.GetEarliestJob().Start.ToString("dd/MM/yyyy"),
+            //                      r.GetCurrentJob().Start.ToString("dd/MM/yyyy"));
+
+            //    //Test to print all the positions of the researcher (not include student)
+            //    foreach (Position pos in r.positions)
+            //    {
+            //        if (pos.Level != EmploymentLevel.Student)
+            //        {
+            //            Console.WriteLine(String.Format("{0}\t{1}\t{2}\n", pos.Start.ToString("dd/MM/yyyy"),
+            //                                                    pos.End.ToString("dd/MM/yyyy"), pos.Title()));
+            //        };
+            //    }
+
+            //    //Test to print basic information of publication
+            //    Console.WriteLine("Tenure: {0}\tPublications: {1}\n", r.Tenure().ToString("0.0"), r.PublicationsCount());
+
+
+            //    //pubic.loadPublicationsFor(r);
+            //}
+            Console.WriteLine("Input ID");
+            int id = Int32.Parse(Console.ReadLine());
+            Researcher r = ERDAdapter.fetchFullResearcherDetails(id);
+            r = ERDAdapter.completeResearcherDetails(r);
+            r.publications = ERDAdapter.fetchBasicPublicationDetails(r);
+            Console.WriteLine("Name: {0} {1}\nTitle:{2}\nUnit: {3}\nCampus: {4}\nEmail: {5}\n" +
+                                  "Photo: {6}\nCurrent job: {7}\nCommenced with institution: {8}\n" +
+                                  "Commenced current position: {9}\nPrevious positions: \n",
+                                  r.GivenName, r.FamilyName, r.Title, r.Unit, r.Campus, r.Email, r.Photo,
+                                  r.GetCurrentJob().Title(), r.GetEarliestJob().Start.ToString("dd/MM/yyyy"),
+                                  r.GetCurrentJob().Start.ToString("dd/MM/yyyy"));
+
+            //Test to print all the positions of the researcher (not include student)
+            foreach (Position pos in r.positions)
             {
-                Researcher r = ERDAdapter.completeResearcherDetails(x);
-                Console.WriteLine("Name: {0} {1}\nTitle:{2}\nUnit: {3}\nCampus: {4}\nEmail: {5}\n" +
-                                  "Photo: {6}Current job: {7}\nCommenced with institution: {8}\n" +
-                                  "Commenced current position: {9}\nPrevious positions: \n", 
-                                  r.GivenName, r.FamilyName, r.Title, r.Unit, r.Campus, r.Email, r.Photo, 
-                                  r.GetCurrentJob().Title(), r.GetEarliestJob().Start, r.GetCurrentJob().Start);
-
+                if (pos.Level != EmploymentLevel.Student && pos.End != default(DateTime))
+                {
+                    Console.WriteLine(String.Format("{0}\t{1}\t{2}\n", pos.Start.ToString("dd/MM/yyyy"),
+                                                            pos.End.ToString("dd/MM/yyyy"), pos.Title()));
+                };
             }
+            Console.WriteLine("Tenure: {0}\tPublications: {1}\n", r.Tenure().ToString("0.0"), r.PublicationsCount());
         }
 
-       
-        
+
+
     }
 }

@@ -19,10 +19,10 @@ namespace RAP.Entity
         public string Email { get; set; }
         public string Photo { get; set; }
 
-        public Position position;
+        public Position position = new Position();
 
-        private Position curr_position;
-        private Position first_position;
+        private Position curr_position = new Position();
+        private Position first_position = new Position();
 
         public List<Position> positions = new List<Position>();
         public List<Publication> publications = new List<Publication>();

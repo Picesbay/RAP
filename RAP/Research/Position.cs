@@ -9,7 +9,7 @@ namespace RAP.Entity
     public enum EmploymentLevel { Student, A, B, C, D, E }
     public class Position
     {
-        private string title; 
+        private string title = ""; 
         public EmploymentLevel Level { get; set ; }
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
@@ -37,7 +37,7 @@ namespace RAP.Entity
                     title = "Professor";
                     break;
                 default:
-                    title = "Student";
+                    title = null;
                     break;
             }
             return title;
