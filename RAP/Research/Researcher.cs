@@ -30,7 +30,7 @@ namespace RAP.Entity
         public Position GetCurrentJob() {
             curr_position = (from p in positions
                            where p.End == default(DateTime)
-                           select p).Single();
+                           select p).SingleOrDefault();
             return curr_position;
         }
         public string CurrentJobTitle()

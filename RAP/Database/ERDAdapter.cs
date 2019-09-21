@@ -138,6 +138,8 @@ namespace RAP.Database
 
         public static Researcher completeResearcherDetails(Researcher r)
         {
+            //r = fetchFullResearcherDetails(r.ID);
+            r.publications = ERDAdapter.fetchBasicPublicationDetails(r);
 
             string s = @"select researcher.id, 
                                 if (researcher.level is NULL, researcher.type, researcher.level) level, 
@@ -280,13 +282,7 @@ namespace RAP.Database
 
                 //while (rdr.Read())
                 //{
-                //    pub.DOI = rdr.GetString(0);
-                //    pub.Title = rdr.GetString(1);
-                //    pub.Authors = rdr.GetString(2);
-                //    pub.Year = rdr.GetInt32(3);
-                //    pub.Type = ParseEnum<OutputType>(rdr.GetString(4));
-                //    pub.CiteAs = rdr.GetString(5);
-                //    pub.Available = rdr.GetDateTime(6);
+
                 //}
             }
             catch (MySqlException e)
