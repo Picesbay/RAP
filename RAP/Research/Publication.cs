@@ -18,7 +18,8 @@ namespace RAP.Entity
         public DateTime Available { get; set; }
         public int Age()
         {
-            return 0;
+            int age = (DateTime.Today - Available).Days;
+            return age;
         }
     }
 }

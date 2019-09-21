@@ -37,7 +37,7 @@ namespace RAP.Entity
                     title = "Professor";
                     break;
                 default:
-                    title = null;
+                    title = "Student";
                     break;
             }
             return title;

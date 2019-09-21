@@ -90,7 +90,10 @@ namespace RAP.Database
 
         public static Researcher fetchFullResearcherDetails(int id)
         {
-            Researcher res = new Researcher();
+            List<Researcher> researchers = fetchBasicResearcherDetails();
+            Researcher res = (from r in researchers
+                              where r.ID == id
+                              select r).SingleOrDefault();
 
             MySqlConnection conn = GetConnection();
             MySqlDataReader rdr = null;
@@ -99,21 +102,16 @@ namespace RAP.Database
             {
                 conn.Open();
 
-                MySqlCommand cmd = new MySqlCommand("select id, given_name, family_name, title, unit, campus, email, " +
-                                                    "photo from researcher where id =? " , conn);
+                MySqlCommand cmd = new MySqlCommand("select unit, campus, email, photo from researcher where id =? " , conn);
                 cmd.Parameters.AddWithValue("id", id);
                 rdr = cmd.ExecuteReader();
 
                 while (rdr.Read() )
                 {
-                    res.ID = rdr.GetInt32(0);
-                    res.GivenName = rdr.GetString(1);
-                    res.FamilyName = rdr.GetString(2);
-                    res.Title = rdr.GetString(3);
-                    res.Unit = rdr.GetString(4);
-                    res.Campus = rdr.GetString(5);
-                    res.Email = rdr.GetString(6);
-                    res.Photo = rdr.GetString(7);
+                    res.Unit = rdr.GetString(0);
+                    res.Campus = rdr.GetString(1);
+                    res.Email = rdr.GetString(2);
+                    res.Photo = rdr.GetString(3);
 
                 }
             }
@@ -138,10 +136,10 @@ namespace RAP.Database
 
         public static Researcher completeResearcherDetails(Researcher r)
         {
-            //r = fetchFullResearcherDetails(r.ID);
+            r = fetchFullResearcherDetails(r.ID);
             r.publications = ERDAdapter.fetchBasicPublicationDetails(r);
 
-            string s = @"select researcher.id, 
+            string query = @"select researcher.id, 
                                 if (researcher.level is NULL, researcher.type, researcher.level) level, 
                                 if (position.start is NULL, researcher.utas_start, position.start) start, end 
                          from researcher left join position on researcher.id = position.id 
@@ -154,7 +152,7 @@ namespace RAP.Database
             {
                 conn.Open();
 
-                MySqlCommand cmd = new MySqlCommand(s, conn);
+                MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("id", r.ID);
                 rdr = cmd.ExecuteReader();
                 while (rdr.Read())
@@ -164,7 +162,7 @@ namespace RAP.Database
                     {
                         Level = ParseEnum<EmploymentLevel>(rdr.GetString(1)),
                         Start = rdr.GetDateTime(2),
-                        End = rdr.IsDBNull(3) ? default(DateTime) : rdr.GetDateTime(3)
+                        End = rdr.IsDBNull(3) ? default : rdr.GetDateTime(3)
                     });
                 }
 
@@ -191,6 +189,12 @@ namespace RAP.Database
         {
             List<Publication> pub = new List<Publication>();
 
+            string query = @"select researcher_publication.doi, publication.year, publication.title 
+                             from researcher_publication
+                             left join publication
+                             on researcher_publication.doi = publication.doi
+                             where researcher_id =?";
+
             MySqlConnection conn = GetConnection();
             MySqlDataReader rdr = null;
 
@@ -198,14 +202,14 @@ namespace RAP.Database
             {
                 conn.Open();
 
-                MySqlCommand cmd = new MySqlCommand("select doi from researcher_publication where researcher_id =?", conn);
-                cmd.Parameters.AddWithValue("researcher_id", r.ID);
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("researcher_id", r.ID); 
                 rdr = cmd.ExecuteReader();
 
                 while (rdr.Read())
                 {
                     
-                    pub.Add(new Publication { DOI = rdr.GetString(0) }); 
+                    pub.Add(new Publication { DOI = rdr.GetString(0), Year = rdr.GetInt32(1), Title = rdr.GetString(2)}); 
                 }
             }
             catch (MySqlException e)
@@ -267,8 +271,12 @@ namespace RAP.Database
             }
             return pub;
         }
-        public static int fetchPublicationCounts(DateTime fromDate, DateTime toDate)
+
+
+        public static List<Student> fetchStudentsDetails()
         {
+            List<Student> students = new List<Student>();
+
             MySqlConnection conn = GetConnection();
             MySqlDataReader rdr = null;
 
@@ -276,14 +284,13 @@ namespace RAP.Database
             {
                 conn.Open();
 
-                //MySqlCommand cmd = new MySqlCommand("select * from publication where doi =?", conn);
-                //cmd.Parameters.AddWithValue("doi", pub.DOI);
-                //rdr = cmd.ExecuteReader();
+                MySqlCommand cmd = new MySqlCommand("select id, supervisor_id, degree from researcher where type = 'Student'", conn);
+                rdr = cmd.ExecuteReader();
 
-                //while (rdr.Read())
-                //{
-
-                //}
+                while (rdr.Read())
+                {
+                    students.Add(new Student { ID = rdr.GetInt32(0), SupervisorID = rdr.GetInt32(1), Degree = rdr.GetString(2) });
+                }
             }
             catch (MySqlException e)
             {
@@ -300,7 +307,8 @@ namespace RAP.Database
                     conn.Close();
                 }
             }
-            return 0;
+
+            return students; 
         }
     }
 }

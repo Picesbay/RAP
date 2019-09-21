@@ -12,8 +12,7 @@ namespace RAP
             ResearcherController rc = new ResearcherController();
             Action doSomething;
             //doSomething = rc.LoadResearchers;
-            doSomething = rc.TestRunTimeLoadResearchers;
-            //doSomething = rc.TestRunTimeLoadResearchers;
+            doSomething = rc.TestResearcherListByID;
             doSomething();
         }
     }
