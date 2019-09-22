@@ -17,9 +17,6 @@ namespace RAP.Controller
     }
     public class PublicationsController
     {
-
-        //public Publication loadBasicPublication(Researcher) 
-
         //Load all the details for the specific publication
         public void LoadPublicationsFor(Researcher r)
         {
@@ -32,6 +29,7 @@ namespace RAP.Controller
             
         }
 
+        //Load total number of publications by year
         public List<PublicationCount> CumulativePublicationCount(Researcher r)
         {
             
@@ -47,37 +45,12 @@ namespace RAP.Controller
             return publication_count.ToList();
         }
 
+        //Sort the list of publications of a researcher by ascending
         public List<Publication> SortPublicationList(Researcher r)
         {
             var sorted_publications = from p in r.publications
-                                      orderby p.Year
+                                      orderby p.Year ascending
                                       select p;
             return sorted_publications.ToList();
         }
 
-
-        //----------------------------------------------------------Test---------------------------------------------------------------
-
-        public void TestPublicationDetails(Researcher r)
-        {
-            foreach(Publication pub in r.publications)
-            {
-                //Test to print complete details of a publication
-                Console.WriteLine("DOI: {0}\nTitle: {1}\nAuthors: {2}\nPublication year: {3}\nType: {4}\nCite as: {5}\nAvailability date: {6}\n," +
-                                  "Age: {7}\n",
-                                   pub.DOI, pub.Title, pub.Authors, pub.Year, pub.Type, pub.CiteAs, pub.Available.ToString("dd/MM/yyyy"),
-                                   pub.Age());
-            }
-        }
-
-        public void TestPublicationsCount(Researcher r)
-        {
-            List<PublicationCount> pc = CumulativePublicationCount(r);
-            foreach (var element in pc)
-            {
-                Console.WriteLine("Year: {0}\nCumulative Publications: {1}", element.PublicYear, element.NumOfPublication);
-            }
-        }
-
-    }
-}

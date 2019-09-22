@@ -20,7 +20,6 @@ namespace RAP.Controller
         public List<Researcher> resFiltered = new List<Researcher>();
 
         public List<int> staffID = new List<int>();
-
         public List<Student> students = new List<Student>();
 
         //Load full list of researchers
@@ -41,6 +40,8 @@ namespace RAP.Controller
         {
             students = ERDAdapter.fetchStudentsDetails();
         }
+
+        //Filter by employment level
         public void FilterBy(EmploymentLevel level)
         {
             var filteredByLevel = from r in res
@@ -48,6 +49,8 @@ namespace RAP.Controller
                                select r;
             resFiltered = filteredByLevel.ToList();
         }
+
+        //Filter by name
         public void FilterByName(string name)
         {
             var filteredByName = from r in res
@@ -106,9 +109,10 @@ namespace RAP.Controller
         }
 
 
-        //---------------------------------------------------------------------Test-------------------------------------------------
+//---------------------------------------------------------------------Test----------------------------------------------------------
 
-        //Test run time of LoadResearchers()--------------------Start--------------------------------------------------------------------
+        //---------------------------------Test run time of LoadResearchers()---------------------------------------------
+        //------------------------------------------------Start------------------------------------------------------------
         public void TestRunTimeLoadResearchers()
         {
             var watch = System.Diagnostics.Stopwatch.StartNew();
@@ -133,6 +137,7 @@ namespace RAP.Controller
 
 
 
+
         //Test function to print out a list of researchers.---------Start-------------------------------------------------------------------------
         public void TestBasicListResearchers()
         {
@@ -142,7 +147,8 @@ namespace RAP.Controller
 
 
 
-//----------------------------------------------------Full Test Start------------------------------------------------------------------------------
+
+        //----------------------------------------------------Full Test Start------------------------------------------------------------------------------
         //Test function to print out a researcher details by his/her ID
         public void TestResearcherListByID()
         {
@@ -214,30 +220,36 @@ namespace RAP.Controller
             //pc.TestPublicationDetails(current_researcher);
 
         }
-//-----------------------------------------------------------------End------------------------------------------------------------------
+        //-----------------------------------------------------------------End------------------------------------------------------------------
 
 
-//---------------------------------------Test Performance Report------------------------------------------------------------
-//----------------------------------------------Start------------------------------------------------------------
+
+
+        //---------------------------------------Test Performance Report------------------------------------------------------------
+        //----------------------------------------------Start------------------------------------------------------------
         public void DisplayPerfReport()
         {
             LoadResearchers();
             LoadResearcherDetails();
             List<Staff> staffList = LoadStaff();
             staffList = SortedPerformance(staffList);
+            Console.WriteLine(string.Format("{0,-20} | {1,-20} | {2,-20} | {3,-20}",
+                                            "Performance", "Performance Metric", "Name", "Email"));
             foreach (var c in staffList)
             {
-                Console.WriteLine("Performance: {0}\t\tPerformance Metric: {1}\t\tName: {2} {3}\t" +
-                                  "Performance: {4}\n",
-                                   c.PerformanceReport(), c.Performance(), c.GivenName, c.FamilyName, c.ThreeYearAverage());
-                Console.WriteLine("Cumutive Pub 3 year: {0}\t",
-                          c.publications.Where(p => p.Year >= DateTime.Now.Year - 3 && p.Year < DateTime.Now.Year).Count());
+                
+                Console.WriteLine(string.Format("{0,-20} | {1,-20} | {2,-20} | {3,-20}",
+                                  c.PerformanceReport(), c.Performance(), c.GivenName + " " + c.FamilyName, c.Email));
             }
         }
 
-//---------------------------------------------End---------------------------------------------------------------------------
+        //---------------------------------------------End---------------------------------------------------------------------------
 
-        //Test function to print out the details of all researchers
+
+
+
+        //Test function to print out the details of all researchers-----------------------------------------------------------
+        //-------------------------------------------------Start-----------------------------------------------------------
         public void TestResearcherListFull()
         {
             //PublicationsController pubic = new PublicationsController();
@@ -269,17 +281,28 @@ namespace RAP.Controller
 
             }
         }
+        //-----------------------------------------------------End------------------------------------------------------------
+
+
 
 
         //Test function to display tabular view of researcher's cumulative number of publications by year
+        //-----------------------------------------------------Start----------------------------------------------------
         public void TestPublicationsCount()
         {
             LoadResearcherDetails();
             PublicationsController p = new PublicationsController();
             p.TestPublicationsCount(currentResearcher);
         }
+        //-------------------------------------------------------End----------------------------------------------------------
 
-        //----------------------------------------------------Test Staff and Student function--------------------------------------------------
+
+
+
+        //-----------------------------------------Test Staff and Student function--------------------------------------------------
+        
+        //------------------------------------------------------Start--------------------------------------------------------
+     
         public void TestStaff()
         {
             if (currentResearcher.position.Level != EmploymentLevel.Student)
@@ -289,7 +312,13 @@ namespace RAP.Controller
                 Console.WriteLine("Three year average: {0}\nPerformance: {1}", s.ThreeYearAverage(), s.Performance());
             } 
         }
+        //---------------------------------------------------------End---------------------------------------------------------
 
+
+
+
+        //------------------------------------------Test student degree-------------------------------------------------------
+        //--------------------------------------------------------Start--------------------------------------------------------
         public void DisplayDegreeForStudent(Student s)
         {
             if (currentResearcher.position.Level == EmploymentLevel.Student)
@@ -297,17 +326,29 @@ namespace RAP.Controller
                 Console.WriteLine("Student degree: {0}", s.Degree);
             }
         }
+        //-------------------------------------------------------End-----------------------------------------------------------
 
+
+
+
+        //----------------------------------------Test supervisor name of student----------------------------------------------
+        //-------------------------------------------------------Start---------------------------------------------------------
         public void DisplaySupervisorName(Student s, List<Researcher> r)
         {
             Console.WriteLine("Supervisors Name: {0}", s.SupervisorsName(r));
         }
+        //-------------------------------------------------------End--------------------------------------------------------------
 
+
+
+
+        //----------------------------------------Test number of supervisions in staff-------------------------------------------
+        //---------------------------------------------------Start--------------------------------------------------------------
         public void DisplayNumberOfSupervisions(Staff s)
         {
             Console.WriteLine("Supervisions: {0}", s.Supervisions());
         }
-
+        //----------------------------------------------------End----------------------------------------------------------------
                
     }
 }
