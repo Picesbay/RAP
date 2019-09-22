@@ -6,14 +6,21 @@ namespace RAP
 {
     class Program
     {
+        public delegate void ByID(int id);
 
         static void Main(string[] args)
         {
-            ResearcherController rc = new ResearcherController();
             Action doSomething;
-            //doSomething = rc.LoadResearchers;
-            doSomething = rc.DisplayPerfReport;
+            ByID doByID;
+            ResearcherController rc = new ResearcherController();
+
+            doSomething = rc.TestBasicListResearchers;
             doSomething();
+
+
+            //doByID = rc.TestResearcherListByID;
+            //doByID(123460);
+
         }
     }
 }
