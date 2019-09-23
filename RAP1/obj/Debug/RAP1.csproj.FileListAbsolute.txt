@@ -1,0 +1,17 @@
+C:\Users\Pices\source\repos\RAP1\RAP1\bin\Debug\RAP1.exe.config
+C:\Users\Pices\source\repos\RAP1\RAP1\bin\Debug\RAP1.exe
+C:\Users\Pices\source\repos\RAP1\RAP1\bin\Debug\RAP1.pdb
+C:\Users\Pices\source\repos\RAP1\RAP1\obj\Debug\RAP1.csprojAssemblyReference.cache
+C:\Users\Pices\source\repos\RAP1\RAP1\obj\Debug\MainWindow.g.cs
+C:\Users\Pices\source\repos\RAP1\RAP1\obj\Debug\App.g.cs
+C:\Users\Pices\source\repos\RAP1\RAP1\obj\Debug\RAP1_MarkupCompile.cache
+C:\Users\Pices\source\repos\RAP1\RAP1\obj\Debug\RAP1_MarkupCompile.lref
+C:\Users\Pices\source\repos\RAP1\RAP1\obj\Debug\MainWindow.baml
+C:\Users\Pices\source\repos\RAP1\RAP1\obj\Debug\RAP1.g.resources
+C:\Users\Pices\source\repos\RAP1\RAP1\obj\Debug\RAP1.Properties.Resources.resources
+C:\Users\Pices\source\repos\RAP1\RAP1\obj\Debug\RAP1.csproj.GenerateResource.cache
+C:\Users\Pices\source\repos\RAP1\RAP1\obj\Debug\RAP1.csproj.CoreCompileInputs.cache
+C:\Users\Pices\source\repos\RAP1\RAP1\obj\Debug\RAP1.exe
+C:\Users\Pices\source\repos\RAP1\RAP1\obj\Debug\RAP1.pdb
+C:\Users\Pices\source\repos\RAP1\RAP1\bin\Debug\MySql.Data.dll
+C:\Users\Pices\source\repos\RAP1\RAP1\obj\Debug\RAP1.csproj.CopyComplete
