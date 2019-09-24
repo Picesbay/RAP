@@ -29,7 +29,7 @@ namespace RAP.View
             InitializeComponent();
 
 
-            r = (ResearcherController)(Application.Current.FindResource(RESEARCHERS_LIST_KEY) as ObjectDataProvider).ObjectInstance;
+           
         }
     }
 }

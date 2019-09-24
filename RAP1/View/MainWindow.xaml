@@ -5,18 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RAP.View"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="1000">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150*"/>
-            <ColumnDefinition Width="325*"/>
-            <ColumnDefinition Width="325*"/>
+            <ColumnDefinition Width="200*"/>
+            <ColumnDefinition Width="400*"/>
+            <ColumnDefinition Width="400*"/>
         </Grid.ColumnDefinitions>
-        <!--<ListBox x:Name="researchersListBox" Margin="0" SelectionChanged="researchersListBox_SelectionChanged"
-                 ItemsSource="{Binding Source={StaticResource researchersList}}"/>-->
-        <local:FilterByLevel Margin="0" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="100" Height="49" BorderBrush="Black"/>
-        <ListBox x:Name="researchersListBox" Margin="0,50,0,30" 
-                 ItemsSource="{Binding Source={StaticResource researchersList}}" VerticalAlignment="Center"/>
+        <local:ResearcherListView Margin="0" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="200" Height="430" BorderBrush="Black"/>
+        
         
     </Grid>
 </Window>

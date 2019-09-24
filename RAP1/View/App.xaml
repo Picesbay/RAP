@@ -6,15 +6,16 @@
              xmlns:local2="clr-namespace:RAP.Entity"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <local1:ResearcherController x:Key="researchers"/>
+        <local1:ResearcherController x:Key="rc"/>
         <ObjectDataProvider x:Key="researchersList"
-                            ObjectInstance="{StaticResource researchers}"
+                            ObjectInstance="{StaticResource rc}"
                             MethodName="GetViewableList">
         </ObjectDataProvider>
-        <local2:Position x:Key="level"/>
+
+        <local1:ResearcherController x:Key="level"/>
         <ObjectDataProvider x:Key="employmentLevel"
                             ObjectType="{x:Type sys:Enum}"
-                            MethodName="GetFilteredList">
+                            MethodName="GetValues">
             <ObjectDataProvider.MethodParameters>
                 <x:Type TypeName="local2:EmploymentLevel"/>
             </ObjectDataProvider.MethodParameters>

@@ -13,5 +13,6 @@ namespace RAP.View
     /// </summary>
     public partial class App : Application
     {
+
     }
 }

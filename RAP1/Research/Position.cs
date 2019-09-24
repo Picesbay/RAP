@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RAP.Entity
 {
-    public enum EmploymentLevel { Student, A, B, C, D, E }
+    public enum EmploymentLevel { All, Student, A, B, C, D, E }
     public class Position
     {
         private string title = "";

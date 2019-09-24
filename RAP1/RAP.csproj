@@ -66,8 +66,8 @@
     <Compile Include="Research\Researcher.cs" />
     <Compile Include="Research\Staff.cs" />
     <Compile Include="Research\Student.cs" />
-    <Compile Include="View\FilterByLevel.xaml.cs">
-      <DependentUpon>FilterByLevel.xaml</DependentUpon>
+    <Compile Include="View\ResearcherListView.xaml.cs">
+      <DependentUpon>ResearcherListView.xaml</DependentUpon>
     </Compile>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -84,7 +84,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="View\FilterByLevel.xaml">
+    <Page Include="View\ResearcherListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

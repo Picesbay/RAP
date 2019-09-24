@@ -47,7 +47,21 @@ namespace RAP.Controller
         //}
 
 
+        public void FilterByLevel(EmploymentLevel level)
+        {
+            //var filteredByLevel = from r in researchers
+            //                      where r.position.Level == level || r.position.Level == EmploymentLevel.All
+            //                      select r;
 
+            //var filteredByLevel = from r in researchers
+            //                      where r.position.Level == EmploymentLevel.Student
+            //                      select r;
+
+            //viewableResearchers.Clear();
+            //filteredByLevel.ToList().ForEach(viewableResearchers.Add);
+
+
+        }
 
         ////Load all details of the current researcher
         public void LoadResearcherDetails(Researcher r)
