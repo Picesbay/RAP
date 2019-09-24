@@ -31,6 +31,7 @@ namespace RAP.View
         {
             InitializeComponent();
             rc = (ResearcherController)(Application.Current.FindResource(RESEARCHERS_LIST_KEY) as ObjectDataProvider).ObjectInstance;
+
         }
 
         public static T ParseEnum<T>(string value)
@@ -39,12 +40,16 @@ namespace RAP.View
         }
         private void levelComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            string filterComboBox = filterLevelBox.SelectedItem.ToString();
-            //rc.FilterByLevel(ParseEnum<EmploymentLevel>(filterComboBox));
-            //rc.FilterByLevel(ParseEnum<EmploymentLevel>(e.AddedItems[0].GetType().ToString()));
-            //researchersListBox.DataContext = rc.VisibleResearchers;
-            //MessageBox.Show("AAAAA");
-            rc.VisibleResearchers.RemoveAt(0);
+            if(rc != null)
+            {
+                string filterComboBox = filterLevelBox.SelectedItem.ToString();
+                rc.FilterByLevel(ParseEnum<EmploymentLevel>(filterComboBox));
+                //EmploymentLevel pos = (EmploymentLevel)(Application.Current.FindResource(FILTER_LEVEL_KEY) as ObjectDataProvider).ObjectInstance;
+                //rc.FilterByLevel(pos);
+                //researchersListBox.DataContext = rc.GetViewableList();
+                //MessageBox.Show();
+            }
+           
 
         }
 

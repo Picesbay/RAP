@@ -6,9 +6,9 @@
              xmlns:local2="clr-namespace:RAP.Entity"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <local1:ResearcherController x:Key="rc"/>
+        <local1:ResearcherController x:Key="researchers"/>
         <ObjectDataProvider x:Key="researchersList"
-                            ObjectInstance="{StaticResource rc}"
+                            ObjectInstance="{StaticResource researchers}"
                             MethodName="GetViewableList">
         </ObjectDataProvider>
 

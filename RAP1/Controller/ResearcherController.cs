@@ -25,6 +25,8 @@ namespace RAP.Controller
         private ObservableCollection<Researcher> viewableResearchers;
         public ObservableCollection<Researcher> VisibleResearchers { get { return viewableResearchers; } set { } }
 
+
+
         //public List<int> staffID = new List<int>();
         //public List<Student> students = new List<Student>();
 
@@ -49,16 +51,16 @@ namespace RAP.Controller
 
         public void FilterByLevel(EmploymentLevel level)
         {
-            //var filteredByLevel = from r in researchers
-            //                      where r.position.Level == level || r.position.Level == EmploymentLevel.All
-            //                      select r;
+            var filteredByLevel = from r in researchers
+                                  where r.position.Level == level || level == EmploymentLevel.All
+                                  select r;
 
             //var filteredByLevel = from r in researchers
             //                      where r.position.Level == EmploymentLevel.Student
             //                      select r;
 
-            //viewableResearchers.Clear();
-            //filteredByLevel.ToList().ForEach(viewableResearchers.Add);
+            viewableResearchers.Clear();
+            filteredByLevel.ToList().ForEach(viewableResearchers.Add);
 
 
         }

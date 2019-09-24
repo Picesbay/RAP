@@ -17,14 +17,10 @@
         <!--Filter by name view-->
         <StackPanel Orientation="Horizontal" Grid.Row="0" Width="180" Height="50">
 
-            <!--<ComboBox HorizontalAlignment="Left" Margin="10,27,0,0" VerticalAlignment="Top" Width="133"
-                  ItemsSource="{Binding Source={StaticResource employmentLevel}}"
-                  SelectedIndex="0" SelectionChanged ="ComboBox_SelectionChanged"/>-->
             <Label Content="Show:" VerticalAlignment="Center" Width="60" HorizontalAlignment="Left"/>
             <ComboBox x:Name="filterLevelBox" HorizontalAlignment="Right" Height="25" Width="120"  
-                      ItemsSource="{Binding Source={StaticResource employmentLevel}}" 
-                      SelectionChanged="levelComboBox_SelectionChanged"
-                      SelectedIndex="0" />
+                      ItemsSource="{Binding Source={StaticResource employmentLevel}}" SelectedIndex="0" 
+                      SelectionChanged="levelComboBox_SelectionChanged"/>                      
         </StackPanel>
 
         <!--Researchers list view-->
