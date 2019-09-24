@@ -12,8 +12,10 @@
             <ColumnDefinition Width="400*"/>
             <ColumnDefinition Width="400*"/>
         </Grid.ColumnDefinitions>
-        <local:ResearcherListView Margin="0" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="200" Height="430" BorderBrush="Black"/>
-        
+        <local:ResearcherListView Margin="0" HorizontalAlignment="Left"  VerticalAlignment="Top"
+                                  Width="200" Height="430" BorderBrush="Black"/>
+        <local:ResearcherDetailsView Margin="10" HorizontalAlignment="Left"  VerticalAlignment="Top" 
+                                     Width="400" Height="430" BorderBrush="Black" Grid.Column="1"/>
         
     </Grid>
 </Window>

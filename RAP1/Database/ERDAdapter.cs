@@ -90,10 +90,7 @@ namespace RAP.Database
 
         public static Researcher fetchFullResearcherDetails(int id)
         {
-            List<Researcher> researchers = fetchBasicResearcherDetails();
-            Researcher res = (from r in researchers
-                              where r.ID == id
-                              select r).SingleOrDefault();
+            Researcher res = new Researcher();
 
             MySqlConnection conn = GetConnection();
             MySqlDataReader rdr = null;
@@ -102,16 +99,20 @@ namespace RAP.Database
             {
                 conn.Open();
 
-                MySqlCommand cmd = new MySqlCommand("select unit, campus, email, photo from researcher where id =? ", conn);
+                MySqlCommand cmd = new MySqlCommand("select given_name, family_name, title, unit, campus, email, " +
+                                                    "photo from researcher where id =? ", conn);
                 cmd.Parameters.AddWithValue("id", id);
                 rdr = cmd.ExecuteReader();
 
                 while (rdr.Read())
                 {
-                    res.Unit = rdr.GetString(0);
-                    res.Campus = rdr.GetString(1);
-                    res.Email = rdr.GetString(2);
-                    res.Photo = rdr.GetString(3);
+                    res.GivenName = rdr.GetString(0);
+                    res.FamilyName = rdr.GetString(1);
+                    res.Title = rdr.GetString(2);
+                    res.Unit = rdr.GetString(3);
+                    res.Campus = rdr.GetString(4);
+                    res.Email = rdr.GetString(5);
+                    res.Photo = rdr.GetString(6);
 
                 }
             }
@@ -139,6 +140,7 @@ namespace RAP.Database
             r = fetchFullResearcherDetails(r.ID);
             r.publications = ERDAdapter.fetchBasicPublicationDetails(r);
 
+
             string query = @"select researcher.id, 
                                     if (researcher.level is NULL, researcher.type, researcher.level) level, 
                                     if (position.start is NULL, researcher.utas_start, position.start) start, end 
@@ -162,7 +164,7 @@ namespace RAP.Database
                     {
                         Level = ParseEnum<EmploymentLevel>(rdr.GetString(1)),
                         Start = rdr.GetDateTime(2),
-                        End = rdr.IsDBNull(3) ? default : rdr.GetDateTime(3)
+                        End = rdr.IsDBNull(3) ? default(DateTime) : rdr.GetDateTime(3)
                     });
                 }
 

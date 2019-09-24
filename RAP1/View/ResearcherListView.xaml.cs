@@ -23,10 +23,15 @@ namespace RAP.View
     public partial class ResearcherListView : UserControl
     {
         private ResearcherController rc;
+        private ResearcherDetailsView rd;
+        private Researcher researcher;
 
         private const string RESEARCHERS_LIST_KEY = "researchersList";
         
         private const string FILTER_LEVEL_KEY = "employmentLevel";
+
+       
+
         public ResearcherListView()
         {
             InitializeComponent();
@@ -38,16 +43,13 @@ namespace RAP.View
         {
             return (T)Enum.Parse(typeof(T), value);
         }
-        private void levelComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+
+        private void LevelComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if(rc != null)
             {
                 string filterComboBox = filterLevelBox.SelectedItem.ToString();
                 rc.FilterByLevel(ParseEnum<EmploymentLevel>(filterComboBox));
-                //EmploymentLevel pos = (EmploymentLevel)(Application.Current.FindResource(FILTER_LEVEL_KEY) as ObjectDataProvider).ObjectInstance;
-                //rc.FilterByLevel(pos);
-                //researchersListBox.DataContext = rc.GetViewableList();
-                //MessageBox.Show();
             }
            
 
@@ -55,7 +57,20 @@ namespace RAP.View
 
         private void FilterNameBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            
+            if (rc != null)
+            {
+                rc.FilterByName(filterNameBox.Text);
+            }
+        }
+
+        private void researchersListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count > 0)
+            {
+                Researcher currResearcher = (Researcher)researchersListBox.SelectedItem;
+                //rc.LoadResearcherDetails(currResearcher);
+                //currResearcher = rc.currentResearcher;
+            }
         }
     }
 }

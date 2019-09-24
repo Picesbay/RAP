@@ -14,7 +14,9 @@ namespace RAP.Controller
     public class ResearcherController
     {
         //Declare a specific researcher
-        private Researcher currentResearcher;
+        public Researcher currentResearcher;
+
+
         private ObservableCollection<Researcher> viewableResearcher;
         public ObservableCollection<Researcher> VisibleResearcher { get { return viewableResearcher; } set { } }
 
@@ -35,34 +37,36 @@ namespace RAP.Controller
         {
             researchers = ERDAdapter.fetchBasicResearcherDetails();
             viewableResearchers = new ObservableCollection<Researcher>(researchers);
+            foreach(var r in viewableResearchers)
+            {
+                researchers.Add(ERDAdapter.completeResearcherDetails(r));
+            }
         }
 
         public ObservableCollection<Researcher> GetViewableList()
         {
             return VisibleResearchers;
         }
-        //Load full list of researchers
-        //public void LoadResearchers()
-        //{
-        //    researchers = ERDAdapter.fetchBasicResearcherDetails();
-        //    viewableResearchers = new ObservableCollection<Researcher>(researchers);
-        //}
-
-
+        
+        //Filter by level
         public void FilterByLevel(EmploymentLevel level)
         {
             var filteredByLevel = from r in researchers
                                   where r.position.Level == level || level == EmploymentLevel.All
                                   select r;
 
-            //var filteredByLevel = from r in researchers
-            //                      where r.position.Level == EmploymentLevel.Student
-            //                      select r;
-
             viewableResearchers.Clear();
             filteredByLevel.ToList().ForEach(viewableResearchers.Add);
+        }
 
-
+        //Filter by name
+        public void FilterByName(string name)
+        {
+            var filteredByName = from r in researchers
+                                 where (r.GivenName + ", " + r.FamilyName).ToLower().Contains(name)
+                                 select r;
+            viewableResearchers.Clear();
+            filteredByName.ToList().ForEach(viewableResearchers.Add);
         }
 
         ////Load all details of the current researcher
@@ -77,14 +81,7 @@ namespace RAP.Controller
         //    students = ERDAdapter.fetchStudentsDetails();
         //}
 
-        ////Filter by employment level
-        //public void FilterBy(EmploymentLevel level)
-        //{
-        //    var filteredByLevel = from r in researchers
-        //                          where r.position.Level == level
-        //                          select r;
-        //    resFiltered = filteredByLevel.ToList();
-        //}
+       
 
         ////Filter by name
         //public void FilterByName(string name)
