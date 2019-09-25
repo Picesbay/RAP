@@ -28,7 +28,7 @@ namespace RAP.View
         
         private const string FILTER_LEVEL_KEY = "employmentLevel";
 
-        public ResearcherDetailsView rd = new ResearcherDetailsView();
+        //public ResearcherDetailsView rd = new ResearcherDetailsView();
 
         public ResearcherListView()
         {
@@ -60,14 +60,20 @@ namespace RAP.View
                 rc.FilterByName(filterNameBox.Text);
             }
         }
-
+        public delegate void LoadNewData(Researcher re);
+        public event LoadNewData OnLoadNewData;
         private void researchersListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (e.AddedItems.Count > 0)
             {
                 Researcher currResearcher = (Researcher)e.AddedItems[0];
                
-                rd.ResearcherDetailsPanel.DataContext = currResearcher;
+                //rd.ResearcherDetailsPanel.DataContext = currResearcher;
+                if(OnLoadNewData != null)
+                {
+                    OnLoadNewData(currResearcher);
+                }
+
             }
         }
     }

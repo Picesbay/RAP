@@ -23,15 +23,20 @@ namespace RAP.View
     public partial class MainWindow : Window
     {
         private const string RESEARCHERS_LIST_KEY = "researchersList";
-        private ResearcherController r;
+        //private ResearcherController r;
         public MainWindow()
         {
             InitializeComponent();
-
-
-           
+            this.ResearchersListPanel.OnLoadNewData += LoadNewDataOnDetailPanel;
         }
-
+        public void LoadNewDataOnDetailPanel(Researcher re)
+        {
+            if(re != null)
+            {
+                //this.ResearcherDetailsPanel.DataContext = new { GivenName = re.GivenName};
+                this.ResearcherDetailsPanel.DataContext = re;
+            }
+        }
         private void btnPerfReports_Click(object sender, RoutedEventArgs e)
         {
             ReportsView reports = new ReportsView();
