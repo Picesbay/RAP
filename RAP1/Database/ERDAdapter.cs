@@ -90,7 +90,10 @@ namespace RAP.Database
 
         public static Researcher fetchFullResearcherDetails(int id)
         {
-            Researcher res = new Researcher();
+            List<Researcher> researchers = fetchBasicResearcherDetails();
+            Researcher res = (from r in researchers
+                              where r.ID == id
+                              select r).SingleOrDefault();
 
             MySqlConnection conn = GetConnection();
             MySqlDataReader rdr = null;
@@ -99,20 +102,17 @@ namespace RAP.Database
             {
                 conn.Open();
 
-                MySqlCommand cmd = new MySqlCommand("select given_name, family_name, title, unit, campus, email, " +
-                                                    "photo from researcher where id =? ", conn);
-                cmd.Parameters.AddWithValue("id", id);
+                MySqlCommand cmd = new MySqlCommand("select unit, campus, email, " +
+                                                    "photo from researcher where id = " + id, conn);
+               //cmd.Parameters.AddWithValue("id", id);
                 rdr = cmd.ExecuteReader();
 
                 while (rdr.Read())
                 {
-                    res.GivenName = rdr.GetString(0);
-                    res.FamilyName = rdr.GetString(1);
-                    res.Title = rdr.GetString(2);
-                    res.Unit = rdr.GetString(3);
-                    res.Campus = rdr.GetString(4);
-                    res.Email = rdr.GetString(5);
-                    res.Photo = rdr.GetString(6);
+                    res.Unit = rdr.GetString(0);
+                    res.Campus = rdr.GetString(1);
+                    res.Email = rdr.GetString(2);
+                    res.Photo = rdr.GetString(3);
 
                 }
             }
@@ -154,8 +154,8 @@ namespace RAP.Database
             {
                 conn.Open();
 
-                MySqlCommand cmd = new MySqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("id", r.ID);
+                MySqlCommand cmd = new MySqlCommand(query + r.ID, conn);
+                //cmd.Parameters.AddWithValue("id", r.ID);
                 rdr = cmd.ExecuteReader();
                 while (rdr.Read())
                 {
@@ -195,7 +195,7 @@ namespace RAP.Database
                              from researcher_publication
                              left join publication
                              on researcher_publication.doi = publication.doi
-                             where researcher_id =?";
+                             where researcher_id = ";
 
             MySqlConnection conn = GetConnection();
             MySqlDataReader rdr = null;
@@ -204,8 +204,8 @@ namespace RAP.Database
             {
                 conn.Open();
 
-                MySqlCommand cmd = new MySqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("researcher_id", r.ID);
+                MySqlCommand cmd = new MySqlCommand(query + r.ID, conn);
+                //cmd.Parameters.AddWithValue("researcher_id", r.ID);
                 rdr = cmd.ExecuteReader();
 
                 while (rdr.Read())
@@ -241,8 +241,8 @@ namespace RAP.Database
             {
                 conn.Open();
 
-                MySqlCommand cmd = new MySqlCommand("select * from publication where doi =?", conn);
-                cmd.Parameters.AddWithValue("doi", pub.DOI);
+                MySqlCommand cmd = new MySqlCommand("select * from publication where doi = " + pub.DOI, conn);
+                //cmd.Parameters.AddWithValue("doi", pub.DOI);
                 rdr = cmd.ExecuteReader();
 
                 while (rdr.Read())

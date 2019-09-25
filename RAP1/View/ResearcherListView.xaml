@@ -31,4 +31,5 @@
                  ItemsSource="{Binding Source={StaticResource researchersList}}" 
                  />
     </StackPanel>
+
 </UserControl>

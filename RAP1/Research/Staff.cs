@@ -10,11 +10,13 @@ namespace RAP.Entity
     public class Staff : Researcher
     {
         private float performance;
-        private float performance_percentage;
+        public float PerformancePercentage { get; set; }
+        public PerformanceLabel PerformanceLable { get; set; }
+        public string Name { get { return this.GivenName + " " + this.FamilyName; } set { } }
 
         public List<Student> students = new List<Student>();
-        public PerformanceLabel PerformanceLabel { get; set; }
 
+        //public Staff() { }
         public Staff(Researcher r)
         {
             this.ID = r.ID;
@@ -23,12 +25,14 @@ namespace RAP.Entity
             this.publications = r.publications;
             this.position.Level = r.position.Level;
             this.Email = r.Email;
+            Performance();
+            PerformanceReport();
         }
         public float ThreeYearAverage()
         {
             int cumulativePubThreeYear = publications.Where(p => p.Year >= DateTime.Now.Year - 3 && p.Year < DateTime.Now.Year).Count();
             performance = cumulativePubThreeYear / 3.0f;
-            return this.performance;
+            return performance;
         }
         public float Performance()
         {
@@ -36,32 +40,44 @@ namespace RAP.Entity
             switch (position.Level)
             {
                 case EmploymentLevel.A:
-                    performance_percentage = performance / 0.5f * 100.0f;
+                    PerformancePercentage = performance / 0.5f * 100.0f;
                     break;
                 case EmploymentLevel.B:
-                    performance_percentage = performance / 1.0f * 100.0f;
+                    PerformancePercentage = performance / 1.0f * 100.0f;
                     break;
                 case EmploymentLevel.C:
-                    performance_percentage = performance / 2.0f * 100.0f;
+                    PerformancePercentage = performance / 2.0f * 100.0f;
                     break;
                 case EmploymentLevel.D:
-                    performance_percentage = performance / 3.2f * 100.0f;
+                    PerformancePercentage = performance / 3.2f * 100.0f;
                     break;
                 default:
-                    performance_percentage = performance / 4.0f * 100.0f;
+                    PerformancePercentage = performance / 4.0f * 100.0f;
                     break;
             }
-            return this.performance_percentage;
+            return PerformancePercentage;
         }
 
         public PerformanceLabel ToPerformanceReport(float performance_percentage)
         {
-            if (performance_percentage <= 70) PerformanceLabel = PerformanceLabel.POOR;
-            else if (performance_percentage > 70 && performance_percentage < 110) PerformanceLabel = PerformanceLabel.BELOW_EXPECTATION;
-            else if (performance_percentage >= 110 && performance_percentage < 200) PerformanceLabel = PerformanceLabel.MEETING_MINIMUM;
-            else PerformanceLabel = PerformanceLabel.STAR_PERFORMERS;
+            performance_percentage = Performance();
 
-            return PerformanceLabel;
+            if (performance_percentage <= 70.0f)
+            {
+                PerformanceLable = PerformanceLabel.POOR;
+            }
+            else if (performance_percentage > 70.0f && performance_percentage < 110.0f)
+            {
+                PerformanceLable = PerformanceLabel.BELOW_EXPECTATION;
+            }
+            else if (performance_percentage >= 110.0f && performance_percentage < 200.0f)
+            {
+                PerformanceLable = PerformanceLabel.MEETING_MINIMUM;
+            }
+
+            else
+            { PerformanceLable = PerformanceLabel.STAR_PERFORMERS; }
+            return PerformanceLable;
         }
 
         public PerformanceLabel PerformanceReport()
@@ -69,6 +85,7 @@ namespace RAP.Entity
             return ToPerformanceReport(Performance());
         }
 
+        
         public List<Student> SupervisionList(List<Student> students)
         {
             var supervisions = from s in students

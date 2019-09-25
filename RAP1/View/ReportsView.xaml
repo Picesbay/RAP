@@ -1,0 +1,28 @@
+﻿<Window x:Class="RAP.View.ReportsView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RAP.View"
+        mc:Ignorable="d"
+        Title="Performance Reports" Height="Auto" Width="520">
+    <Grid>
+        <DataGrid x:Name="report" AutoGenerateColumns="False" IsReadOnly="True" 
+                  ItemsSource="{Binding Source={StaticResource staffList}}">
+            <DataGrid.Columns >
+                <DataGridTextColumn Header="Report Name"
+                                    Binding="{Binding Path = PerformanceLable}"/>
+                <DataGridTextColumn Header="Performance Metric"
+                                    Binding="{Binding Path = PerformancePercentage}"/>
+                <DataGridTextColumn Header="Name"
+                                    Binding="{Binding Path = Name}"/>
+                <DataGridTextColumn Header="Email"
+                                    Binding="{Binding Path = Email}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+
+
+       
+    </Grid>
+</Window>

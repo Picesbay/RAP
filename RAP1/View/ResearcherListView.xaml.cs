@@ -23,20 +23,18 @@ namespace RAP.View
     public partial class ResearcherListView : UserControl
     {
         private ResearcherController rc;
-        private ResearcherDetailsView rd;
-        private Researcher researcher;
 
         private const string RESEARCHERS_LIST_KEY = "researchersList";
         
         private const string FILTER_LEVEL_KEY = "employmentLevel";
 
-       
+        public ResearcherDetailsView rd = new ResearcherDetailsView();
 
         public ResearcherListView()
         {
             InitializeComponent();
             rc = (ResearcherController)(Application.Current.FindResource(RESEARCHERS_LIST_KEY) as ObjectDataProvider).ObjectInstance;
-
+           
         }
 
         public static T ParseEnum<T>(string value)
@@ -67,9 +65,9 @@ namespace RAP.View
         {
             if (e.AddedItems.Count > 0)
             {
-                Researcher currResearcher = (Researcher)researchersListBox.SelectedItem;
-                //rc.LoadResearcherDetails(currResearcher);
-                //currResearcher = rc.currentResearcher;
+                Researcher currResearcher = (Researcher)e.AddedItems[0];
+               
+                rd.ResearcherDetailsPanel.DataContext = currResearcher;
             }
         }
     }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RAP.View"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="1000">
+        Title="Research Assessment Program" Height="450" Width="1000">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200*"/>
@@ -14,8 +14,106 @@
         </Grid.ColumnDefinitions>
         <local:ResearcherListView Margin="0" HorizontalAlignment="Left"  VerticalAlignment="Top"
                                   Width="200" Height="430" BorderBrush="Black"/>
-        <local:ResearcherDetailsView Margin="10" HorizontalAlignment="Left"  VerticalAlignment="Top" 
-                                     Width="400" Height="430" BorderBrush="Black" Grid.Column="1"/>
+        <Button Content="Report" HorizontalAlignment="Left" Margin="10,369,0,0" VerticalAlignment="Top" Width="74"
+                Click="btnPerfReports_Click"/>
         
+        <StackPanel Name="ResearcherDetailsPanel" Orientation="Vertical" Grid.Column="1">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Name:"></Label>
+                    <Label Content="{Binding Path=GivenName}"></Label>
+                </StackPanel>
+                <!--<StackPanel Orientation="Horizontal">
+                <Label Content="Name:"></Label>
+                <Label Content="{Binding Path=Name}"></Label>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Name:"></Label>
+                <Label Content="{Binding Path=Name}"></Label>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Name:"></Label>
+                <Label Content="{Binding Path=Name}"></Label>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Name:"></Label>
+                <Label Content="{Binding Path=Name}"></Label>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Name:"></Label>
+                <Label Content="{Binding Path=Name}"></Label>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Name:"></Label>
+                <Label Content="{Binding Path=Name}"></Label>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Name:"></Label>
+                <Label Content="{Binding Path=Name}"></Label>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Name:"></Label>
+                <Label Content="{Binding Path=Name}"></Label>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Name:"></Label>
+                <Label Content="{Binding Path=Name}"></Label>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel>
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Name:"></Label>
+                    <Label Content="{Binding Path=Name}"></Label>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Name:"></Label>
+                    <Label Content="{Binding Path=Name}"></Label>
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Name:"></Label>
+                    <Label Content="{Binding Path=Name}"></Label>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Name:"></Label>
+                    <Label Content="{Binding Path=Name}"></Label>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Name:"></Label>
+                <Label Content="{Binding Path=Name}"></Label>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Name:"></Label>
+                <Label Content="{Binding Path=Name}"></Label>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Name:"></Label>
+                <Label Content="{Binding Path=Name}"></Label>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Name:"></Label>
+                <Label Content="{Binding Path=Name}"></Label>
+            </StackPanel>
+        </StackPanel>
+
+        <TextBlock TextWrapping="Wrap">
+            <TextBlock.Text>Here is some long text. Note how it wraps. Here is some long text. Note how it wraps.</TextBlock.Text>
+        </TextBlock>-->
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </Window>

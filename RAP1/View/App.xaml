@@ -2,24 +2,41 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
-             xmlns:local1="clr-namespace:RAP.Controller"
-             xmlns:local2="clr-namespace:RAP.Entity"
+             xmlns:local="clr-namespace:RAP.Controller"
+             xmlns:local1="clr-namespace:RAP.Entity"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <local1:ResearcherController x:Key="researchers"/>
+        <local:ResearcherController x:Key="researchers"/>
         <ObjectDataProvider x:Key="researchersList"
                             ObjectInstance="{StaticResource researchers}"
                             MethodName="GetViewableList">
         </ObjectDataProvider>
 
-        <local1:ResearcherController x:Key="level"/>
+        <local:ResearcherController x:Key="level"/>
         <ObjectDataProvider x:Key="employmentLevel"
                             ObjectType="{x:Type sys:Enum}"
                             MethodName="GetValues">
             <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="local2:EmploymentLevel"/>
+                <x:Type TypeName="local1:EmploymentLevel"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
-        
+
+        <local:ResearcherController x:Key="staff"/>
+        <ObjectDataProvider x:Key="staffList"
+                            ObjectInstance="{StaticResource staff}"
+                            MethodName="GetViewableStaffPerf">
+        </ObjectDataProvider>
+
+        <local:ResearcherController x:Key="label"/>
+        <ObjectDataProvider x:Key="perfLabel"
+                            ObjectType="{x:Type sys:Enum}"
+                            MethodName="GetValues">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="local1:PerformanceLabel"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+
+
+
     </Application.Resources>
 </Application>

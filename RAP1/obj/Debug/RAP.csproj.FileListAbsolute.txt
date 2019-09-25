@@ -21,3 +21,5 @@ C:\Users\Pices\source\repos\RAP1\RAP1\obj\Debug\View\ResearcherListView.g.cs
 C:\Users\Pices\source\repos\RAP1\RAP1\obj\Debug\View\ResearcherListView.baml
 C:\Users\Pices\source\repos\RAP1\RAP1\obj\Debug\View\ResearcherDetailsView.g.cs
 C:\Users\Pices\source\repos\RAP1\RAP1\obj\Debug\View\ResearcherDetailsView.baml
+C:\Users\Pices\source\repos\RAP1\RAP1\obj\Debug\View\ReportsView.g.cs
+C:\Users\Pices\source\repos\RAP1\RAP1\obj\Debug\View\ReportsView.baml

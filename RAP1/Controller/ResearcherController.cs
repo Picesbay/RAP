@@ -13,21 +13,16 @@ namespace RAP.Controller
 
     public class ResearcherController
     {
-        //Declare a specific researcher
-        public Researcher currentResearcher;
 
-
-        private ObservableCollection<Researcher> viewableResearcher;
-        public ObservableCollection<Researcher> VisibleResearcher { get { return viewableResearcher; } set { } }
-
-
-        private List<Researcher> researchers;
-        //public List<Researcher> resFiltered = new List<Researcher>();
+        private List<Researcher> researchers = new List<Researcher>();
 
         private ObservableCollection<Researcher> viewableResearchers;
         public ObservableCollection<Researcher> VisibleResearchers { get { return viewableResearchers; } set { } }
 
 
+        private List<Staff> listStaff = new List<Staff>();
+        private ObservableCollection<Staff> viewableStaffPerf;
+        public ObservableCollection<Staff> VisibleStaffPerf { get { return viewableStaffPerf; } set { } }
 
         //public List<int> staffID = new List<int>();
         //public List<Student> students = new List<Student>();
@@ -37,10 +32,6 @@ namespace RAP.Controller
         {
             researchers = ERDAdapter.fetchBasicResearcherDetails();
             viewableResearchers = new ObservableCollection<Researcher>(researchers);
-            foreach(var r in viewableResearchers)
-            {
-                researchers.Add(ERDAdapter.completeResearcherDetails(r));
-            }
         }
 
         public ObservableCollection<Researcher> GetViewableList()
@@ -70,77 +61,69 @@ namespace RAP.Controller
         }
 
         ////Load all details of the current researcher
-        public void LoadResearcherDetails(Researcher r)
+        public Researcher LoadResearcherDetails(Researcher r)
         {
-            currentResearcher = ERDAdapter.completeResearcherDetails(r);
+            Researcher currentResearcher = ERDAdapter.completeResearcherDetails(r);
+            return currentResearcher;
         }
 
+     
         ////Load full list of students
         //public void LoadStudentDetails()
         //{
         //    students = ERDAdapter.fetchStudentsDetails();
         //}
 
-       
 
-        ////Filter by name
-        //public void FilterByName(string name)
-        //{
-        //    var filteredByName = from r in researchers
-        //                         where r.GivenName == name
-        //                         select r;
-        //    resFiltered = filteredByName.ToList();
-        //}
 
 
         ////--------------------------------------------------Use Case 43: User generate reports---------------------------------------------
         /////
         /////Load full list of staff
         /////
-        //public List<Staff> LoadStaff()
-        //{
-        //    List<Staff> staffList = new List<Staff>();
+        public void LoadStaff()
+        {
+            foreach (var r in researchers)
+            {
+                if (r.position.Level != EmploymentLevel.Student)
+                {
+                    Researcher re = ERDAdapter.completeResearcherDetails(r);
 
-        //    LoadResearchers();
-
-        //    foreach (var r in researchers)
-        //    {
-        //        if (r.position.Level != EmploymentLevel.Student)
-        //        {
-        //            Researcher re = ERDAdapter.completeResearcherDetails(r);
-        //            staffList.Add(new Staff(re));
-        //        }
-        //    }
-        //    return staffList;
-        //}
+                    listStaff.Add(new Staff(re)) ;
+                }
+            }
+            SortedPerformance();
+        }
 
 
 
-        ////Performance Reports
-        //public List<Staff> SortedPerformance(List<Staff> staffList)
-        //{
-        //    var lowPerformance = from s in staffList
-        //                         where s.PerformanceLabel == PerformanceLabel.POOR || s.PerformanceLabel == PerformanceLabel.BELOW_EXPECTATION
-        //                         orderby s.Performance() ascending
-        //                         select s;
+        //Performance Reports
+        public void SortedPerformance()
+        {
+            var lowPerformance = from s in listStaff
+                                 where s.PerformanceLable == PerformanceLabel.POOR || s.PerformanceLable == PerformanceLabel.BELOW_EXPECTATION
+                                 orderby s.Performance() ascending
+                                 select s;
 
-        //    var highPerformance = from s in staffList
-        //                          where s.PerformanceLabel == PerformanceLabel.MEETING_MINIMUM || s.PerformanceLabel == PerformanceLabel.STAR_PERFORMERS
-        //                          orderby s.Performance() descending
-        //                          select s;
+            var highPerformance = from s in listStaff
+                                  where s.PerformanceLable == PerformanceLabel.MEETING_MINIMUM || s.PerformanceLable == PerformanceLabel.STAR_PERFORMERS
+                                  orderby s.Performance() descending
+                                  select s;
 
-        //    staffList = lowPerformance.Concat(highPerformance).ToList();
+            listStaff = lowPerformance.Concat(highPerformance).ToList();
+            viewableStaffPerf = new ObservableCollection<Staff>(listStaff);
 
-        //    return staffList;
-        //}
+        }
 
-        //public List<Staff> FilterByPerformance(List<Staff> staffList, PerformanceLabel performanceLabel)
-        //{
-        //    var filtedStaffList = from s in staffList
-        //                          where s.PerformanceLabel == performanceLabel
-        //                          select s;
-        //    return filtedStaffList.ToList();
-        //}
+
+        public ObservableCollection<Staff> GetViewableStaffPerf()
+        {
+            LoadStaff();
+            
+            return VisibleStaffPerf;
+        }
+
+
 
 
         ////---------------------------------------------------------------------Test----------------------------------------------------------

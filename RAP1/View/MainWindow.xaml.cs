@@ -31,5 +31,11 @@ namespace RAP.View
 
            
         }
+
+        private void btnPerfReports_Click(object sender, RoutedEventArgs e)
+        {
+            ReportsView reports = new ReportsView();
+            reports.ShowDialog();
+        }
     }
 }
