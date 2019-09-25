@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace RAP.Entity
 {
-    public enum PerformanceLabel { POOR, BELOW_EXPECTATION, MEETING_MINIMUM, STAR_PERFORMERS };
+    public enum PerformanceLabel { ALL, POOR, BELOW_EXPECTATION, MEETING_MINIMUM, STAR_PERFORMERS };
     public class Staff : Researcher
     {
         private float performance;
         public float PerformancePercentage { get; set; }
-        public PerformanceLabel PerformanceLable { get; set; }
+        public PerformanceLabel PerformanceLabel { get; set; }
         public string Name { get { return this.GivenName + " " + this.FamilyName; } set { } }
 
         public List<Student> students = new List<Student>();
@@ -64,20 +64,20 @@ namespace RAP.Entity
 
             if (performance_percentage <= 70.0f)
             {
-                PerformanceLable = PerformanceLabel.POOR;
+                PerformanceLabel = PerformanceLabel.POOR;
             }
             else if (performance_percentage > 70.0f && performance_percentage < 110.0f)
             {
-                PerformanceLable = PerformanceLabel.BELOW_EXPECTATION;
+                PerformanceLabel = PerformanceLabel.BELOW_EXPECTATION;
             }
             else if (performance_percentage >= 110.0f && performance_percentage < 200.0f)
             {
-                PerformanceLable = PerformanceLabel.MEETING_MINIMUM;
+                PerformanceLabel = PerformanceLabel.MEETING_MINIMUM;
             }
 
             else
-            { PerformanceLable = PerformanceLabel.STAR_PERFORMERS; }
-            return PerformanceLable;
+            { PerformanceLabel = PerformanceLabel.STAR_PERFORMERS; }
+            return PerformanceLabel;
         }
 
         public PerformanceLabel PerformanceReport()

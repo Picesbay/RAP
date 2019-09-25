@@ -32,6 +32,7 @@ namespace RAP.Controller
         {
             researchers = ERDAdapter.fetchBasicResearcherDetails();
             viewableResearchers = new ObservableCollection<Researcher>(researchers);
+            LoadStaff();
         }
 
         public ObservableCollection<Researcher> GetViewableList()
@@ -101,12 +102,12 @@ namespace RAP.Controller
         public void SortedPerformance()
         {
             var lowPerformance = from s in listStaff
-                                 where s.PerformanceLable == PerformanceLabel.POOR || s.PerformanceLable == PerformanceLabel.BELOW_EXPECTATION
+                                 where s.PerformanceLabel == PerformanceLabel.POOR || s.PerformanceLabel == PerformanceLabel.BELOW_EXPECTATION
                                  orderby s.Performance() ascending
                                  select s;
 
             var highPerformance = from s in listStaff
-                                  where s.PerformanceLable == PerformanceLabel.MEETING_MINIMUM || s.PerformanceLable == PerformanceLabel.STAR_PERFORMERS
+                                  where s.PerformanceLabel == PerformanceLabel.MEETING_MINIMUM || s.PerformanceLabel == PerformanceLabel.STAR_PERFORMERS
                                   orderby s.Performance() descending
                                   select s;
 
@@ -123,6 +124,23 @@ namespace RAP.Controller
             return VisibleStaffPerf;
         }
 
+
+        //Filter by Report
+        public void FilterByReport(ObservableCollection<Staff> staff, PerformanceLabel perfLabel)
+        {
+            var filteredByReport = from r in staff
+                                   where r.PerformanceLabel == perfLabel || r.PerformanceLabel == PerformanceLabel.ALL
+                                   select r;
+
+            viewableStaffPerf.Clear();
+            filteredByReport.ToList().ForEach(viewableStaffPerf.Add);
+            //viewableStaffPerf.Clear();
+            //List<Staff> temptList = new List<Staff>();
+            //filteredByReport.ToList().ForEach(temptList.Add);
+            //viewableStaffPerf.Clear();
+            //temptList.ForEach(viewableStaffPerf.Add);
+
+        }
 
 
 

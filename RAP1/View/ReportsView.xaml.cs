@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using RAP.Controller;
+using RAP.Entity;
 
 namespace RAP.View
 {
@@ -19,10 +21,26 @@ namespace RAP.View
     /// </summary>
     public partial class ReportsView : Window
     {
+        private ResearcherController rc;
+        private const string STAFF_LIST_KEY = "staffList";
         public ReportsView()
         {
             InitializeComponent();
+            //rc = (ResearcherController)(Application.Current.FindResource(STAFF_LIST_KEY) as ObjectDataProvider).ObjectInstance;
         }
 
+        public static T ParseEnum<T>(string value)
+        {
+            return (T)Enum.Parse(typeof(T), value);
+        }
+       
+        private void ReportComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (rc != null)
+            {
+                string filterComboBox = filterReportBox.SelectedItem.ToString();
+                rc.FilterByReport(rc.GetViewableStaffPerf(),ParseEnum<PerformanceLabel>(filterComboBox));
+            }
+        }
     }
 }

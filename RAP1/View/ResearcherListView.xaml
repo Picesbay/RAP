@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="180">
     <StackPanel Name="ResearchersListPanel" Grid.Column="0">
-        <!--Filter by level view-->
+        <!--Filter by name view-->
         <StackPanel Orientation="Horizontal" Grid.Row="0" Width="180" Height="30">
             <Label Content="Filter by name:" VerticalAlignment="Center" Width="100" HorizontalAlignment="Left"/>
             <TextBox Name="filterNameBox" HorizontalAlignment="Right" Height="25" Width="80" 
@@ -15,7 +15,7 @@
                      TextChanged="FilterNameBox_TextChanged"  />
         </StackPanel>
         
-        <!--Filter by name view-->
+        <!--Filter by level view-->
         <StackPanel Orientation="Horizontal" Grid.Row="0" Width="180" Height="50">
 
             <Label Content="Show:" VerticalAlignment="Center" Width="60" HorizontalAlignment="Left"/>

@@ -5,14 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RAP.View"
         mc:Ignorable="d"
-        Title="Performance Reports" Height="Auto" Width="520">
-    <Grid>
+        Title="Performance Reports" Height="Auto" Width="360">
+    <StackPanel>
+        <!--Filter by Report-->
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Width="360" Height="50" VerticalAlignment="Center" 
+                    HorizontalAlignment="Left">
+
+            <Label Content="Show:" VerticalAlignment="Center" Width="50" HorizontalAlignment="Left"/>
+            <ComboBox x:Name="filterReportBox" HorizontalAlignment="Left" Height="25" Width="150"  
+                      ItemsSource="{Binding Source={StaticResource perfLabel}}" SelectedIndex="0" 
+                      SelectionChanged="ReportComboBox_SelectionChanged"/>
+            <Button Content="Copy email" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="80" Margin="20,0,0,15" Height="Auto"
+                />
+        </StackPanel>
+
         <DataGrid x:Name="report" AutoGenerateColumns="False" IsReadOnly="True" 
                   ItemsSource="{Binding Source={StaticResource staffList}}">
             <DataGrid.Columns >
-                <DataGridTextColumn Header="Report Name"
-                                    Binding="{Binding Path = PerformanceLable}"/>
-                <DataGridTextColumn Header="Performance Metric"
+                <DataGridTextColumn Header="Performance"
                                     Binding="{Binding Path = PerformancePercentage}"/>
                 <DataGridTextColumn Header="Name"
                                     Binding="{Binding Path = Name}"/>
@@ -21,8 +31,6 @@
             </DataGrid.Columns>
         </DataGrid>
 
+    </StackPanel>
 
-
-       
-    </Grid>
 </Window>
