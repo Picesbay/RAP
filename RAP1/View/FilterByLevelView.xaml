@@ -1,0 +1,15 @@
+﻿<UserControl x:Class="RAP.View.FilterByLevelView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RAP.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="49" d:DesignWidth="180">
+    <Grid>
+        <Label Content="Show:" VerticalAlignment="Center" Width="60" HorizontalAlignment="Left"/>
+        <ComboBox x:Name="filterLevelBox" HorizontalAlignment="Right" Height="25" Width="110"  
+                      ItemsSource="{Binding Source={StaticResource employmentLevel}}" SelectedIndex="0" 
+                      SelectionChanged="LevelComboBox_SelectionChanged" Margin="0,0,20,0" VerticalAlignment="Center"/>
+    </Grid>
+</UserControl>

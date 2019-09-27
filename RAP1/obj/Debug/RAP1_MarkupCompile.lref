@@ -1,7 +1,10 @@
 ﻿
 FC:\Users\Pices\source\repos\RAP1\RAP1\View\App.xaml;;
 FC:\Users\Pices\source\repos\RAP1\RAP1\View\MainWindow.xaml;;
-FC:\Users\Pices\source\repos\RAP1\RAP1\View\ResearcherListView.xaml;;
-FC:\Users\Pices\source\repos\RAP1\RAP1\View\ResearcherDetailsView.xaml;;
 FC:\Users\Pices\source\repos\RAP1\RAP1\View\ReportsView.xaml;;
+FC:\Users\Pices\source\repos\RAP1\RAP1\View\FilterByNameView.xaml;;
+FC:\Users\Pices\source\repos\RAP1\RAP1\View\FilterByLevelView.xaml;;
+FC:\Users\Pices\source\repos\RAP1\RAP1\View\FilterByReportView.xaml;;
+FC:\Users\Pices\source\repos\RAP1\RAP1\View\CumulativeCount.xaml;;
+FC:\Users\Pices\source\repos\RAP1\RAP1\View\SupervisorsName.xaml;;
 

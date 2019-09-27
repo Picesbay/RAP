@@ -5,23 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RAP.View"
         mc:Ignorable="d"
-        Title="Performance Reports" Height="Auto" Width="360">
+        Title="Performance Reports" Height="Auto" Width="520">
     <StackPanel>
-        <!--Filter by Report-->
+        
+        
         <StackPanel Orientation="Horizontal" Grid.Row="0" Width="360" Height="50" VerticalAlignment="Center" 
                     HorizontalAlignment="Left">
 
-            <Label Content="Show:" VerticalAlignment="Center" Width="50" HorizontalAlignment="Left"/>
-            <ComboBox x:Name="filterReportBox" HorizontalAlignment="Left" Height="25" Width="150"  
-                      ItemsSource="{Binding Source={StaticResource perfLabel}}" SelectedIndex="0" 
-                      SelectionChanged="ReportComboBox_SelectionChanged"/>
-            <Button Content="Copy email" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="80" Margin="20,0,0,15" Height="Auto"
-                />
+            <!--Filter by Report-->
+            <local:FilterByReportView Grid.Column="0" HorizontalAlignment="Center" Width="200" Margin="50,0,0,0"
+                                  VerticalAlignment="Top" Height="49"/>
+
+            <!--Copy Email-->
+            <Button Content="Copy email" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="80" Margin="20,0,0,15" 
+                    Height="Auto" Click="copyEmail_Click" />
         </StackPanel>
 
-        <DataGrid x:Name="report" AutoGenerateColumns="False" IsReadOnly="True" 
-                  ItemsSource="{Binding Source={StaticResource staffList}}">
-            <DataGrid.Columns >
+         <!--Report Tables-->
+        <DataGrid x:Name="report" AutoGenerateColumns="False" IsReadOnly="True" HorizontalAlignment="Left"
+                  ItemsSource="{Binding Source={StaticResource staffList}}" MaxWidth="470">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Report name"
+                                    Binding="{Binding Path = PerformanceLabel}"/>
                 <DataGridTextColumn Header="Performance"
                                     Binding="{Binding Path = PerformancePercentage}"/>
                 <DataGridTextColumn Header="Name"

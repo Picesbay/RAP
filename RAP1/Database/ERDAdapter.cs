@@ -145,7 +145,7 @@ namespace RAP.Database
                                     if (researcher.level is NULL, researcher.type, researcher.level) level, 
                                     if (position.start is NULL, researcher.utas_start, position.start) start, end 
                             from researcher left join position on researcher.id = position.id 
-                            where researcher.id =? ";
+                            where researcher.id = ";
 
             MySqlConnection conn = GetConnection();
             MySqlDataReader rdr = null;
@@ -155,7 +155,6 @@ namespace RAP.Database
                 conn.Open();
 
                 MySqlCommand cmd = new MySqlCommand(query + r.ID, conn);
-                //cmd.Parameters.AddWithValue("id", r.ID);
                 rdr = cmd.ExecuteReader();
                 while (rdr.Read())
                 {
@@ -237,23 +236,21 @@ namespace RAP.Database
             MySqlConnection conn = GetConnection();
             MySqlDataReader rdr = null;
 
+            string query = @"select authors, type, cite_as, available, doi from publication where doi = '" + pub.DOI + "'";
             try
             {
                 conn.Open();
 
-                MySqlCommand cmd = new MySqlCommand("select * from publication where doi = " + pub.DOI, conn);
-                //cmd.Parameters.AddWithValue("doi", pub.DOI);
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                //cmd.Parameters.AddWithValue("doi", pub.DOI.ToString());
                 rdr = cmd.ExecuteReader();
 
                 while (rdr.Read())
                 {
-                    pub.DOI = rdr.GetString(0);
-                    pub.Title = rdr.GetString(1);
-                    pub.Authors = rdr.GetString(2);
-                    pub.Year = rdr.GetInt32(3);
-                    pub.Type = ParseEnum<OutputType>(rdr.GetString(4));
-                    pub.CiteAs = rdr.GetString(5);
-                    pub.Available = rdr.GetDateTime(6);
+                    pub.Authors = rdr.GetString(0);
+                    pub.Type = ParseEnum<OutputType>(rdr.GetString(1));
+                    pub.CiteAs = rdr.GetString(2);
+                    pub.Available = rdr.GetDateTime(3);
                 }
             }
             catch (MySqlException e)

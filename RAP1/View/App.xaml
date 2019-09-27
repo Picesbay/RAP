@@ -12,6 +12,7 @@
                             MethodName="GetViewableList">
         </ObjectDataProvider>
 
+
         <local:ResearcherController x:Key="level"/>
         <ObjectDataProvider x:Key="employmentLevel"
                             ObjectType="{x:Type sys:Enum}"

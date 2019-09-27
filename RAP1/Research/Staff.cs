@@ -28,15 +28,19 @@ namespace RAP.Entity
             Performance();
             PerformanceReport();
         }
-        public float ThreeYearAverage()
+        public float ThreeYearAverage
         {
-            int cumulativePubThreeYear = publications.Where(p => p.Year >= DateTime.Now.Year - 3 && p.Year < DateTime.Now.Year).Count();
-            performance = cumulativePubThreeYear / 3.0f;
-            return performance;
+            get
+            {
+                int cumulativePubThreeYear = publications.Where(p => p.Year >= DateTime.Now.Year - 3 && 
+                                                                p.Year < DateTime.Now.Year).Count();
+                performance = cumulativePubThreeYear / 3.0f;
+                return performance;
+            }
         }
         public float Performance()
         {
-            performance = ThreeYearAverage();
+            performance = ThreeYearAverage;
             switch (position.Level)
             {
                 case EmploymentLevel.A:
@@ -86,16 +90,19 @@ namespace RAP.Entity
         }
 
         
-        public List<Student> SupervisionList(List<Student> students)
+        public List<Student> SupervisionList()
         {
             var supervisions = from s in students
                                where s.SupervisorID == this.ID
                                select s;
             return supervisions.ToList();
         }
-        public int Supervisions()
+        public int Supervisions
         {
-            return SupervisionList(students).Count;
+            get
+            {
+                return SupervisionList().Count;
+            }
         }
     }
 }

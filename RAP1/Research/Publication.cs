@@ -16,10 +16,13 @@ namespace RAP.Entity
         public OutputType Type { get; set; }
         public string CiteAs { get; set; }
         public DateTime Available { get; set; }
-        public int Age()
+        public int Age
         {
-            int age = (DateTime.Today - Available).Days;
-            return age;
+            get
+            {
+                int age = (DateTime.Today - Available).Days;
+                return age;
+            }
         }
     }
 }

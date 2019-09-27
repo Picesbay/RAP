@@ -10,7 +10,6 @@ using System.Collections.ObjectModel;
 
 namespace RAP.Controller
 {
-
     public class ResearcherController
     {
 
@@ -24,15 +23,16 @@ namespace RAP.Controller
         private ObservableCollection<Staff> viewableStaffPerf;
         public ObservableCollection<Staff> VisibleStaffPerf { get { return viewableStaffPerf; } set { } }
 
-        //public List<int> staffID = new List<int>();
-        //public List<Student> students = new List<Student>();
+        private List<Student> students = new List<Student>();
+        private ObservableCollection<Student> viewableStudents;
+        public ObservableCollection<Student> VisibleStudents { get { return viewableStudents; } set { } }
+
 
         //ReseacherController constructors
         public ResearcherController()
         {
             researchers = ERDAdapter.fetchBasicResearcherDetails();
             viewableResearchers = new ObservableCollection<Researcher>(researchers);
-            LoadStaff();
         }
 
         public ObservableCollection<Researcher> GetViewableList()
@@ -55,7 +55,7 @@ namespace RAP.Controller
         public void FilterByName(string name)
         {
             var filteredByName = from r in researchers
-                                 where (r.GivenName + ", " + r.FamilyName).ToLower().Contains(name)
+                                 where (r.GivenName + ", " + r.FamilyName).ToUpper().Contains(name.ToUpper()) 
                                  select r;
             viewableResearchers.Clear();
             filteredByName.ToList().ForEach(viewableResearchers.Add);
@@ -68,14 +68,19 @@ namespace RAP.Controller
             return currentResearcher;
         }
 
-     
-        ////Load full list of students
-        //public void LoadStudentDetails()
-        //{
-        //    students = ERDAdapter.fetchStudentsDetails();
-        //}
 
+        //Load full list of students
+        public void LoadStudentDetails()
+        {
+            students = ERDAdapter.fetchStudentsDetails();
+            viewableStudents = new ObservableCollection<Student>(students);
+        }
 
+        public ObservableCollection<Student> GetViewableStudents()
+        {
+            LoadStudentDetails();
+            return VisibleStudents;
+        }
 
 
         ////--------------------------------------------------Use Case 43: User generate reports---------------------------------------------
@@ -84,6 +89,7 @@ namespace RAP.Controller
         /////
         public void LoadStaff()
         {
+            
             foreach (var r in researchers)
             {
                 if (r.position.Level != EmploymentLevel.Student)
@@ -120,25 +126,19 @@ namespace RAP.Controller
         public ObservableCollection<Staff> GetViewableStaffPerf()
         {
             LoadStaff();
-            
             return VisibleStaffPerf;
         }
 
 
         //Filter by Report
-        public void FilterByReport(ObservableCollection<Staff> staff, PerformanceLabel perfLabel)
+        public void FilterByReport(PerformanceLabel perfLabel)
         {
-            var filteredByReport = from r in staff
-                                   where r.PerformanceLabel == perfLabel || r.PerformanceLabel == PerformanceLabel.ALL
+            var filteredByReport = from r in listStaff
+                                   where r.PerformanceLabel == perfLabel || perfLabel == PerformanceLabel.ALL
                                    select r;
 
             viewableStaffPerf.Clear();
             filteredByReport.ToList().ForEach(viewableStaffPerf.Add);
-            //viewableStaffPerf.Clear();
-            //List<Staff> temptList = new List<Staff>();
-            //filteredByReport.ToList().ForEach(temptList.Add);
-            //viewableStaffPerf.Clear();
-            //temptList.ForEach(viewableStaffPerf.Add);
 
         }
 

@@ -7,18 +7,17 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using RAP.Controller;
 using RAP.Entity;
+using Application = System.Windows.Application;
 
 namespace RAP.View
 {
-    /// <summary>
-    /// Interaction logic for Window1.xaml
-    /// </summary>
     public partial class ReportsView : Window
     {
         private ResearcherController rc;
@@ -26,21 +25,15 @@ namespace RAP.View
         public ReportsView()
         {
             InitializeComponent();
-            //rc = (ResearcherController)(Application.Current.FindResource(STAFF_LIST_KEY) as ObjectDataProvider).ObjectInstance;
+            rc = (ResearcherController)(Application.Current.FindResource(STAFF_LIST_KEY) as ObjectDataProvider).ObjectInstance;
         }
 
-        public static T ParseEnum<T>(string value)
+        private void copyEmail_Click(object sender, RoutedEventArgs e)
         {
-            return (T)Enum.Parse(typeof(T), value);
-        }
-       
-        private void ReportComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (rc != null)
-            {
-                string filterComboBox = filterReportBox.SelectedItem.ToString();
-                rc.FilterByReport(rc.GetViewableStaffPerf(),ParseEnum<PerformanceLabel>(filterComboBox));
-            }
+            var saveEmails = from s in rc.VisibleStaffPerf
+                            select s.Email;
+            System.Windows.Forms.Clipboard.SetText(string.Join(Environment.NewLine,
+                saveEmails.Cast<object>().Select(o => o.ToString())));
         }
     }
 }

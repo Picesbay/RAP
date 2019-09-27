@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\Pices\source\repos\RAP1\RAP1\View\App.xaml
-4-59098478
+71066036954
 
-172081612183
+20175182347
 16-1552285311
-View\MainWindow.xaml;View\ResearcherListView.xaml;View\ResearcherDetailsView.xaml;View\ReportsView.xaml;
+View\MainWindow.xaml;View\ReportsView.xaml;View\FilterByNameView.xaml;View\FilterByLevelView.xaml;View\FilterByReportView.xaml;View\CumulativeCount.xaml;View\SupervisorsName.xaml;
 
 False
 

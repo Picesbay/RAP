@@ -5,114 +5,182 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RAP.View"
         mc:Ignorable="d"
-        Title="Research Assessment Program" Height="450" Width="1000">
+        Title="Research Assessment Program" Height="450" Width="1200">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200*"/>
             <ColumnDefinition Width="400*"/>
             <ColumnDefinition Width="400*"/>
         </Grid.ColumnDefinitions>
-        <local:ResearcherListView Margin="0" HorizontalAlignment="Left"  VerticalAlignment="Top"
-                                  Width="200" Height="430" BorderBrush="Black"/>
-        <Button Content="Report" HorizontalAlignment="Left" Margin="10,369,0,0" VerticalAlignment="Top" Width="74"
-                Click="btnPerfReports_Click"/>
         
-        <StackPanel Name="ResearcherDetailsPanel" Orientation="Vertical" Grid.Column="1">
-            <StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Name:"></Label>
-                    <Label Content="{Binding Path=GivenName}"></Label>
-                </StackPanel>
-                <!--<StackPanel Orientation="Horizontal">
-                <Label Content="Name:"></Label>
-                <Label Content="{Binding Path=Name}"></Label>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <Label Content="Name:"></Label>
-                <Label Content="{Binding Path=Name}"></Label>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <Label Content="Name:"></Label>
-                <Label Content="{Binding Path=Name}"></Label>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <Label Content="Name:"></Label>
-                <Label Content="{Binding Path=Name}"></Label>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <Label Content="Name:"></Label>
-                <Label Content="{Binding Path=Name}"></Label>
-            </StackPanel>
-        </StackPanel>
+        <!--FilterByNameView-->
+        <local:FilterByNameView Grid.Column="0" HorizontalAlignment="Left" Width="200" Margin="10,10,0,10" 
+                                  VerticalAlignment="Top" Height="49"/>
 
-        <StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <Label Content="Name:"></Label>
-                <Label Content="{Binding Path=Name}"></Label>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <Label Content="Name:"></Label>
-                <Label Content="{Binding Path=Name}"></Label>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <Label Content="Name:"></Label>
-                <Label Content="{Binding Path=Name}"></Label>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <Label Content="Name:"></Label>
-                <Label Content="{Binding Path=Name}"></Label>
-            </StackPanel>
-        </StackPanel>
+        <!--FilterByLevelView-->
+        <local:FilterByLevelView Grid.Column="0" HorizontalAlignment="Left" Width="200" Margin="10,50,0,10" 
+                                  VerticalAlignment="Top" Height="49"/>
 
-        <StackPanel>
-            <StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Name:"></Label>
-                    <Label Content="{Binding Path=Name}"></Label>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Name:"></Label>
-                    <Label Content="{Binding Path=Name}"></Label>
+        <!--Researcher lists-->
+        <ListBox x:Name="researchersListBox" Margin="10,100,10,50" 
+                 SelectionChanged="researchersListBox_SelectionChanged"
+                 ItemsSource="{Binding Source={StaticResource researchersList}}" />
+        
+        <!--Report Performance Button-->
+        <Button Content="Report" VerticalAlignment="Bottom" Margin="15" Width="74" Height="22" Grid.Column="0"
+                HorizontalAlignment="Center" Click="btnPerfReports_Click"/>
+       
+        
+        <!--Researcher Details View-->
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="1">
+        <StackPanel Name="ResearcherDetailsPanel" Orientation="Vertical" Grid.Column="1" >
+                <Label Content="Researcher Details" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold"></Label>
+                <StackPanel Orientation="Horizontal">                
+                <!--Name, Title, Unit, Campus, Email, Current Job.-->
+                <StackPanel Orientation="Vertical" Width="300">
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Name:"></Label>
+                        <Label Content="{Binding Path=GivenName}"></Label>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Title:"></Label>
+                        <Label Content="{Binding Path=Title}"></Label>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Unit:"></Label>
+                        <Label Content="{Binding Path=Unit}"></Label>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Campus:"></Label>
+                        <Label Content="{Binding Path=Campus}"></Label>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Email:"></Label>
+                        <Label Content="{Binding Path=Email}"></Label>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Current Job:"></Label>
+                        <Label Content="{Binding Path=CurrentJobTitle}"></Label>
+                    </StackPanel>
+                </StackPanel>                
+                <!--Photo-->
+                <StackPanel Width="100" HorizontalAlignment="Right">
+                    <!--<Image Height="200"  Source="{Binding Path=ResearcherPhoto}"></Image>-->
+                    <Image  Source="C:\Users\Pices\source\repos\RAP1\RAP1\photo1.png"></Image>
                 </StackPanel>
             </StackPanel>
+            
+            <!--Start institution, start date for current job, Positions list view-->
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Commenced with institution:"></Label>
+                <Label Content="{Binding Path=EarliestStart}"></Label>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Commenced current position:"></Label>
+                <Label Content="{Binding Path=CurrentJobStart}"></Label>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" Margin="0,0,10,0">
+                <Label Content="Previous positions:"></Label>
+                <!--Positions lists-->
+                <ListView x:Name="positionsListView" MinHeight="30"></ListView>
+            </StackPanel>
 
-            <StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Name:"></Label>
-                    <Label Content="{Binding Path=Name}"></Label>
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal" >
+                        <StackPanel Orientation="Horizontal" Width="120">
+                            <Label Content="Tenure:"></Label>
+                            <Label Content="{Binding Path=Tenure}"></Label>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Publications:"></Label>
+                                <Label Content="{Binding Path=PublicationsCount}"></Label>
+                            </StackPanel>
+                            <Button x:Name="cumulativeCount" Content="Cumulative Count" Margin="20,5,0,0" Click="btnCumulativeCount_Click" />
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal" Width="120">
+                            <Label Content="3-Year average:"></Label>
+                            <Label Name="threeYear"></Label>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Performance:"></Label>
+                            <Label Name="performance"></Label>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal" Width="100">
+                            <Label Content="Supervisions:"></Label>
+                            <Label Name="supervisions"></Label>
+                        </StackPanel>
+                        <Button Content="Show Names" Margin="10,5,0,0" Click="btnShowNames_Click" />
+                    </StackPanel>
                 </StackPanel>
+
                 <StackPanel Orientation="Horizontal">
-                    <Label Content="Name:"></Label>
-                    <Label Content="{Binding Path=Name}"></Label>
+                    <StackPanel Orientation="Horizontal" Width="120">
+                        <Label Content="Degree:"></Label>
+                        <Label Name="degree"></Label>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" >
+                        <Label Content="Supervisors:"></Label>
+                        <Label Name="supervisors"></Label>
+                    </StackPanel>
                 </StackPanel>
-            </StackPanel>
-        </StackPanel>
+            
+            
+                <ListView x:Name="publicationsListView" MinHeight="30" Margin="0,10,10,20" 
+                      HorizontalContentAlignment="Stretch" SelectionChanged="publicationsListView_SelectionChanged">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" >
+                                <TextBlock Text="{Binding Year}"  HorizontalAlignment="Left" Width="50"/>
+                                <TextBlock Text="{Binding Title}"  HorizontalAlignment="Left"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
 
-        <StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <Label Content="Name:"></Label>
-                <Label Content="{Binding Path=Name}"></Label>
             </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <Label Content="Name:"></Label>
-                <Label Content="{Binding Path=Name}"></Label>
+        </ScrollViewer>
+        
+        
+        <StackPanel x:Name="PublicationDetailsPanel" Orientation="Vertical" Grid.Column="2" Margin="20,0,0,0">
+            <Label Content="Publication Details" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold"></Label>
+            <StackPanel Orientation="Horizontal" >
+                <Label Content="DOI:"></Label>
+                <Label Content="{Binding Path = DOI}"></Label>
             </StackPanel>
-        </StackPanel>
-
-        <StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <Label Content="Name:"></Label>
-                <Label Content="{Binding Path=Name}"></Label>
+            <StackPanel Orientation="Horizontal" >
+                <Label Content="Title:"></Label>
+                <Label Content="{Binding Path = Title}"></Label>
             </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <Label Content="Name:"></Label>
-                <Label Content="{Binding Path=Name}"></Label>
+            <StackPanel Orientation="Horizontal" >
+                <Label Content="Authors:"></Label>
+                <Label Content="{Binding Path = Authors}"></Label>
             </StackPanel>
-        </StackPanel>
-
-        <TextBlock TextWrapping="Wrap">
-            <TextBlock.Text>Here is some long text. Note how it wraps. Here is some long text. Note how it wraps.</TextBlock.Text>
-        </TextBlock>-->
+            <StackPanel Orientation="Horizontal" >
+                <Label Content="Publication year:"></Label>
+                <Label Content="{Binding Path = Year}"></Label>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" >
+                <Label Content="Type:"></Label>
+                <Label Content="{Binding Path = Type}"></Label>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" >
+                <Label Content="Cite as:"></Label>
+                <Label Content="{Binding Path = CiteAs}"></Label>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" >
+                <Label Content="Availability date:"></Label>
+                <Label Content="{Binding Path = Available}"></Label>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" >
+                <Label Content="Age:"></Label>
+                <Label Content="{Binding Path = Age}"></Label>
             </StackPanel>
         </StackPanel>
     </Grid>

@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Net;
 
 namespace RAP.Entity
 {
-
     public class Researcher
     {
         public int ID { get; set; }
@@ -21,48 +23,92 @@ namespace RAP.Entity
 
         public Position position = new Position();
 
-        private Position curr_position = new Position();
-        private Position first_position = new Position();
-
         public List<Position> positions = new List<Position>();
         public List<Publication> publications = new List<Publication>();
 
-        public Position GetCurrentJob()
+        public Position GetCurrentJob
         {
-            curr_position = (from p in positions
-                             where p.End == default(DateTime)
-                             select p).SingleOrDefault();
-            return curr_position;
+            get
+            {
+                Position curr_position = (from p in positions
+                                 where p.End == default(DateTime)
+                                 select p).SingleOrDefault();
+                return curr_position;
+            }
         }
-        public string CurrentJobTitle()
+        public string CurrentJobTitle
         {
-            return curr_position.Title();
+            get { return GetCurrentJob.Title(); }
         }
-        public DateTime CurrentJobStart()
+        public DateTime CurrentJobStart
         {
-            return curr_position.Start;
+            get { return GetCurrentJob.Start; }
         }
-        public Position GetEarliestJob()
+        public Position GetEarliestJob
         {
-            first_position = (from p in positions
-                              orderby p.Start
-                              select p).First();
-            return first_position;
+            get
+            {
+                Position first_position = (from p in positions
+                                  orderby p.Start
+                                  select p).First();
+                return first_position;
+            }
         }
-        public DateTime EarliestStart()
+        public DateTime EarliestStart
         {
-            return first_position.Start;
+            get { return GetEarliestJob.Start; }
         }
-        public float Tenure()
+        public float Tenure
         {
-            float days = (DateTime.Today - first_position.Start).Days;
-            return days / (365.0f);
+            get
+            {
+                float days = (DateTime.Today - GetEarliestJob.Start).Days;
+                return days / (365.0f);
+            }
         }
-        public int PublicationsCount()
+        public int PublicationsCount
         {
-            return publications.Count;
+            get { return publications.Count; }
         }
 
+        public BitmapImage ResearcherPhoto
+        {
+            get
+            {
+                BitmapImage bi = new BitmapImage();
+                bi.BeginInit();
+                bi.UriSource = new Uri(@"https://www.deviantart.com/pseudolonewolf/art/Generic-Male-Face-295297991", UriKind.Absolute);
+
+                //bi.UriSource = new Uri(Photo, UriKind.Absolute);
+                bi.EndInit();
+
+                return bi;
+            }
+        }
+
+        //public string ResearcherPhoto
+        //{
+        //    get
+        //    {
+        //        string remoteUri = @"http://www.americanlayout.com/wp/wp-content/uploads/2012/08/C-To-Go-300x300.png";
+        //        string fileName = "Researcher" + ID + ".png";
+        //        WebClient webClient = new WebClient();
+
+        //            webClient.DownloadFile(remoteUri, fileName);
+
+        //        return fileName;
+        //    }
+        //}
+
+        //public Uri ResearcherPhoto
+        //{
+        //    get
+        //    {
+        //        Uri photo = new Uri(@"http://www.americanlayout.com/wp/wp-content/uploads/2012/08/C-To-Go-300x300.png");
+        //        return photo;
+        //    }
+
+        //} 
         public override string ToString()
         {
             return String.Format("{0}, {1} ({2})",GivenName,FamilyName,Title);

@@ -6,34 +6,55 @@ using System.Threading.Tasks;
 
 using RAP.Entity;
 using RAP.Database;
+using System.Collections.ObjectModel;
 
 namespace RAP.Controller
 {
 
-    public struct PublicationCount
+    public class PublicationCount
     {
-        public int PublicYear;
-        public int NumOfPublication;
+        public int PublicYear { get; set; }
+        public int NumOfPublication { get; set; }
     }
     public class PublicationsController
     {
+        //List publications
+        private List<Publication> publications = new List<Publication>();
+
+        private ObservableCollection<Publication> viewablePublications;
+        public ObservableCollection<Publication> VisiblePublications { get { return viewablePublications; } set { } }
+
+
+        //List culmulative count
+
+        private ObservableCollection<PublicationCount> viewablePublicationsCount;
+        public ObservableCollection<PublicationCount> VisiblePublicationsCount { get { return viewablePublicationsCount; } set { } }
+
+
         //Load all the details for the specific publication
-        public void LoadPublicationsFor(Researcher r)
+        public PublicationsController(Researcher r)
         {
+            publications = r.publications;
+            viewablePublications = new ObservableCollection<Publication>(publications);
+            viewablePublicationsCount = new ObservableCollection<PublicationCount>();
+        }
 
-            foreach (Publication p in r.publications)
-            {
-                ERDAdapter.completePublicationDetails(p);
+        public Publication LoadPublicationDetails(Publication pub)
+        {
+            //foreach (Publication p in publications)
+            //{
+            //    ERDAdapter.completePublicationDetails(p);
 
-            }
-
+            //}
+            Publication currPublication = ERDAdapter.completePublicationDetails(pub);
+            return currPublication;
         }
 
         //Load total number of publications by year
-        public List<PublicationCount> CumulativePublicationCount(Researcher r)
+        public void CumulativePublicationCount()
         {
 
-            var publication_count = from p in r.publications
+            var publication_count = from p in publications
                                     orderby p.Year ascending
                                     group p by p.Year into p_list
                                     select new PublicationCount
@@ -41,33 +62,42 @@ namespace RAP.Controller
                                         PublicYear = p_list.First().Year,
                                         NumOfPublication = p_list.Count()
                                     };
+            viewablePublicationsCount.Clear();
+            publication_count.ToList().ForEach(viewablePublicationsCount.Add);
+        }
 
-            return publication_count.ToList();
+        public ObservableCollection<PublicationCount> GetCumulativePublicationCount()
+        {
+            CumulativePublicationCount();
+            return VisiblePublicationsCount;
         }
 
         //Sort the list of publications of a researcher by ascending
-        public List<Publication> SortPublicationList(Researcher r)
+        public void SortPublicationList()
         {
-            var sorted_publications = from p in r.publications
-                                      orderby p.Year ascending
+            var sorted_publications = from p in publications
+                                      
+                                      orderby p.Title
+                                      orderby p.Year descending
                                       select p;
-            return sorted_publications.ToList();
+            viewablePublications.Clear();
+            sorted_publications.ToList().ForEach(viewablePublications.Add);
         }
 
 
         //---------------------------------------------------Test-------------------------------------------------------------
         //--------------------------------------------Test Function CumulativePublicationCount-------------------------------
         //----------------------------------------------------Start---------------------------------------------------------
-        public void TestPublicationsCount(Researcher r)
-        {
-            List<PublicationCount> pc = CumulativePublicationCount(r);
-            Console.WriteLine("{0,-10}  {1}\n", "Year", "Cumulative Publication");
-            foreach (var element in pc)
-            {
-                Console.WriteLine("{0,-10}   {1}\n", element.PublicYear, element.NumOfPublication);
-            }
+        //public void TestPublicationsCount(Researcher r)
+        //{
+        //    List<PublicationCount> pc = CumulativePublicationCount(r);
+        //    Console.WriteLine("{0,-10}  {1}\n", "Year", "Cumulative Publication");
+        //    foreach (var element in pc)
+        //    {
+        //        Console.WriteLine("{0,-10}   {1}\n", element.PublicYear, element.NumOfPublication);
+        //    }
 
-        }
+        //}
         //----------------------------------------------------End---------------------------------------------------------------
 
 
@@ -83,7 +113,7 @@ namespace RAP.Controller
                                   "{12,-20} {13,-20}\n{14,-20} {15,-20}\n", "DOI:", pub.DOI, "Title:", pub.Title,
                                   "Author:", pub.Authors, "Publication year:", pub.Year, "Type:", pub.Type,
                                   "Cite as:", pub.CiteAs, "Availability date:", pub.Available.ToString("dd /MM/yyyy"),
-                                  "Age:", pub.Age());
+                                  "Age:", pub.Age);
             }
         }
 

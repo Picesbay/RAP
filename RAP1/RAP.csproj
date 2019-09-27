@@ -66,14 +66,23 @@
     <Compile Include="Research\Researcher.cs" />
     <Compile Include="Research\Staff.cs" />
     <Compile Include="Research\Student.cs" />
-    <Compile Include="View\ResearcherListView.xaml.cs">
-      <DependentUpon>ResearcherListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\ResearcherDetailsView.xaml.cs">
-      <DependentUpon>ResearcherDetailsView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\ReportsView.xaml.cs">
       <DependentUpon>ReportsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\FilterByNameView.xaml.cs">
+      <DependentUpon>FilterByNameView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\FilterByLevelView.xaml.cs">
+      <DependentUpon>FilterByLevelView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\FilterByReportView.xaml.cs">
+      <DependentUpon>FilterByReportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\CumulativeCount.xaml.cs">
+      <DependentUpon>CumulativeCount.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SupervisorsName.xaml.cs">
+      <DependentUpon>SupervisorsName.xaml</DependentUpon>
     </Compile>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -90,15 +99,27 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="View\ResearcherListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\ResearcherDetailsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\ReportsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\FilterByNameView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\FilterByLevelView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\FilterByReportView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CumulativeCount.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SupervisorsName.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -121,6 +142,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -128,6 +150,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="photo1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
