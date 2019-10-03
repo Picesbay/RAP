@@ -17,30 +17,28 @@ function add_new_setting ()
 	do
 		echo -e "\nEnter setting (format: ABCD=abcd): \c"
 		read varAdd
-		#Check if variable exist
-	    checkVariableName=$(grep $varAdd config.txt) 
-		if [[ -z $checkVariableName ]];
-		then 
-			#If the user only press enter/return
-			if [[ -z $varAdd ]] ; 
-			then
-				echo -e "New setting not entered\n" ; continue ;
-				
+		
+		#If the user only press enter/return
+		if [ -z $varAdd ] ; 
+		then
+			echo -e "New setting not entered\n" ; continue ;
+			
+		else
 			#If the user enter only the variable name without "=" sign
-			elif [ $(expr index $varAdd '=') = 0 ] ; then
-				echo -e "Invalid setting\n"
+			if [ $(expr index $varAdd '=') = 0 ] ; then
+				echo -e "Invalid setting\n"	; 
 				
 			#If the user enter only the variable name with "=" sign	
 			elif [ 	${varAdd: -1} = "=" ] ; then
 				echo -e "The variable name of the setting is: ${varAdd%=*} " 
 				echo -e "The variable value of the setting is: "
-				echo -e "Invalid setting.\n" ; continue ;
+				echo -e "Invalid setting.\n" ; 
 				
 			#If the user enter only enter the variable value with the "=" before variable value 	
 			elif [ ${varAdd:0:1} = "=" ] ; then
 				echo -e "The variable name of the setting is: "
 				echo -e "The variable value of the setting is: ${varAdd#*=}"
-				echo -e "Invalid setting.\n" ; continue ;
+				echo -e "Invalid setting.\n" ;
 				
 			#If the user enter both the variable name and value 
 			#but the first character is a number
@@ -48,20 +46,25 @@ function add_new_setting ()
 				echo -e "The variable name of the setting is: ${varAdd%=*} "
 				echo -e "The variable value of the setting is: ${varAdd#*=}"
 				echo -e "Invalid setting. The first character of a variable name cannot be a digit.\n"
-			
-			#The user enter the correct new setting convention + Add new setting to config.txt
+		
 			else
-				echo -e "The variable name of the setting is: ${varAdd%=*} "
-				echo -e "The variable value of the setting is: ${varAdd#*=}"
-				echo $varAdd >> config.txt
-				echo -e "New setting added.\n" ; 
-				break ;
-			fi 
-		else
-			echo -e "The variable name of the setting is: ${varAdd%=*} "
-			echo -e "The variable value of the setting is: ${varAdd#*=}"
-			echo -e "Variable exists. Changing the values of existing variables is not allowed." ; 
-			break ;
+				#Check if the user enter the exist variable name	
+				checkVariableName=$(grep ${varAdd%=*} config.txt)  
+				if [[ -z $checkVariableName ]]; then						
+					echo -e "The variable name of the setting is: ${varAdd%=*} "
+					echo -e "The variable value of the setting is: ${varAdd#*=}"
+					echo $varAdd >> config.txt
+					echo -e "New setting added.\n" ; 
+					break ;	
+			
+				#The user enter the correct new setting convention + Add new setting to config.txt	
+				else
+					echo -e "The variable name of the setting is: ${varAdd%=*} "
+					echo -e "The variable value of the setting is: ${varAdd#*=}"
+					echo -e "Variable exists. Changing the values of existing variables is not allowed." ; 
+					break ; 
+				fi
+			fi
 		fi
 	done
 }
